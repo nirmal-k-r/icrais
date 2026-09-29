@@ -1,0 +1,589 @@
+A Multi-Tier Genetic Algorithm for Large-Scale Liner 
+Shipping Network Design 
+Rampersand Nirmal1A and Gukhool Oomesh1B 
+1 University of Mauritius, Réduit, 80837, Mauritius 
+Anirkramp@gmail.com 
+Bo.gukhool@uom.ac.mu 
+Abstract.  
+The Liner Shipping Network Design Problem (LSNDP) is a combinatorial opti-
+misation problem that jointly determines vessel routes, fleet deployment and 
+cargo routing to maximise profit while satisfying weekly demand. As traditional 
+methods struggle to scale efficiently for realistic global liner shipping networks, 
+this study proposes a hierarchical hub-and-spoke Genetic Algorithm (GA) archi-
+tecture designed with a demand-driven network construction strategy. A new for-
+mulation is proposed that maximises profit as well as demand delivery. The pro-
+posed framework integrates four routing strategies including direct services, in-
+ter-regional trunk routes, feeder services and regional loops to improve network 
+connectivity and cargo accessibility. The developed Multi-Tier GA incorporates 
+demand-based chromosome initialisation, adaptive mutation, elitism, tournament 
+selection as well as an aggressive demand-weighted fitness function. In order to 
+allocate vessels across multiple categories, demand-proportional allocation strat-
+egies are employed. Experiments conducted on benchmark instances from the 
+Liner-Lib dataset demonstrate that the proposed Multi-Tier architecture and de-
+mand-driven optimisation strategy significantly improve solution quality, scala-
+bility and convergence behaviour on large scale problem instances. It achieves 
+an average demand fulfilment of 91.5% with profits exceeding 37 million USD 
+with a very fast execution time of 158s on the WorldSmall instance. These find-
+ings indicate that the proposed Multi-Tier GA algorithm provides an effective 
+and scalable approach for large-scale liner shipping network design. 
+Keywords: GA, optimisation, liner shipping network design problem 
+1 
+Introduction 
+Global liner shipping networks are critical components of maritime freight transporta-
+tion as they enable the movement of large volumes of containerised cargo worldwide 
+[1]. Designing an efficient Liner Shipping Network (LSN) involves determining opti-
+mal vessel routes, fleet deployment and cargo routing while satisfying operational con-
+straints [2]. Due to the scale and combinatorial complexity of this problem, the Liner 
+Shipping Network Design Problem (LSNDP) is widely recognised as an NP-hard opti-
+misation problem [3].  
+ 
+
+=====PAGE=====
+2  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+Modern LSN are also affected by growing network scale, increasing cargo demand, 
+fluctuating fuel prices route durations and service schedules. As a result, maintaining 
+high demand delivery remains a major challenge for large-scale global LSNs [4]. In 
+addition, traditional exact optimisation methods struggle to scale efficiently on large 
+global LSNDP instances due to its large search space [5]. Consequently, heuristic [6] 
+and hybrid [7] optimisation approaches have been investigated for solving the LSNDP. 
+However existing studies rely heavily on predefined hub-and-spoke structures or sim-
+plified route assumptions which may limit network scalability on large scale inter-re-
+gional LSNs [8]. 
+ 
+This paper proposes a Multi-Tier GA for solving the LSNDP using a hierarchical route 
+construction framework and a demand-oriented optimisation process. The proposed 
+framework uses of a combination of direct routes, trunk services, feeder connections 
+and regional loops for efficient network construction. A new formulation that maxim-
+ises profit while maximising demand-delivery and satisfying operational constraints is 
+also proposed along with a fitness function that integrates weighted-demand fulfilment 
+rewards. 
+ 
+The literature review presents existing studies related to the LSNDP as well as existing 
+optimisation approaches. The problem formulation section defines the proposed 
+LSNDP formulation and optimisation objectives. The methods section introduces the 
+Multi-Tier GA and hierarchical routing structure. The results and discussion section 
+presents the experimental findings, convergence behaviour and comparative analysis. 
+Lastly, the conclusion summarises key findings of the study and outlines future research 
+directions. 
+2 
+Literature review 
+Various approaches including mathematical programming-based approaches, heuristic 
+approaches and hybrid methods have been developed to solve the LSNDP [5]. While 
+mathematical programming methods such as MIP [9] are capable of generating optimal 
+or near-optimal results, their computational performance degrades rapidly as the net-
+work size and problem complexity grows with execution times higher than 10800 sec-
+onds for instances with 19-ports only [10]. Heuristic-based introduced techniques such 
+as column generation [11], branch and price [12], tabu search [13] and GA [14]. These 
+approaches offer good quality but sub-optimal solutions and have the ability of solving 
+small and medium problem instances but also struggle with designing large scale global 
+LSNs. More advanced hybrid approaches [7, 15–17] combine multiple optimisation 
+algorithms, heuristics and metaheuristics together to leverage the strengths of different 
+algorithms and improve solution quality or computational efficiency. These algorithms 
+provide good-quality but sub-optimal solutions but are scalable and allow large global 
+LSNDP instances such as WorldSmall to be solved. However, they require careful pa-
+rameter tuning and choice of components. 
+ 
+
+=====PAGE=====
+ 
+Contribution Title (shortened if too long) 
+3 
+Nature-inspired metaheuristics such as evolutionary algorithms [18] or swarm-based 
+algorithms [19] have also been increasingly investigated for solving large-scale LSNDP 
+instances due to their ability to explore complex search spaces efficiently. Existing 
+studies have explored metaheuristics such as Particle Swarm Optimisation (PSO) [20], 
+Ant Colony Optimisation (ACO) [21] and GA[14]. GAs operate on a population of 
+candidate solutions and apply genetic operators such as selection, crossover and muta-
+tion to evolve solutions over successive generations [22]. Cariou et al. [14] show that 
+their GA-based solution has the ability of finding an optimal solution to the LSNDP 
+even when introducing complexities such as emission control areas. This indicates that 
+GAs offer a promising avenue for research due to their ability to explore large search 
+spaces and their flexibility in handling multiple objectives and constraints. Moreover, 
+they are particularly suitable for the LSNDP due to their ability to simultaneously op-
+timise vessel assignment, route construction and cargo routing while maintaining solu-
+tion diversity during optimisation. A few studies have also adopted hub-and-spoke rout-
+ing structures to simplify network construction and improve computational efficiency 
+[8, 23]. These approaches typically use major transhipment hubs connected through 
+trunk services while feeder routes connect secondary regional ports. Although hub-and-
+spoke architectures improve scalability, many existing studies rely on pre-defined hub 
+structures and simplified routing assumptions [24, 25]. This may restrict routing flexi-
+bility and efficiency while also limiting demand delivery across large inter-regional 
+LSNs. 
+ 
+While significant progress has been achieved in optimising the LSNDP, solving large-
+scale global instances such as WorldSmall [13] with high profitability while maintain-
+ing high demand delivery remains computationally challenging. Therefore, this study 
+addresses these limitations by proposing a Multi-Tier GA that uses a hierarchical rout-
+ing framework. 
+3 
+Problem Formulation 
+The LSNDP has been formulated as a graph-based combinatorial optimisation problem 
+where ports are represented as nodes and possible routes as edges. The objective of the 
+optimisation problem is to maximise profit while maximising demand-delivery and sat-
+isfying operational constraints such as fleet availability, vessel capacity and schedules. 
+The LSNDP is represented using a directed graph 𝐺= (𝑃, 𝐸) where 𝑃 represents the 
+set of ports and 𝐸 the set of feasible sailing connections between ports. Each demand 
+is defined as an origin-destination pair with an associated cargo quantity and transpor-
+tation revenue. Vessel routes are generated through combinations of direct services, 
+trunk services, feeder services and regional loop structures within the proposed multi-
+tier architecture. The optimisation problem simultaneously determines vessel deploy-
+ment, route allocation, cargo routing and service connectivity.  
+The variables used in the objective function including sets and parameters have been 
+defined as follows. 𝑃 represents the set of ports, 𝑉 defines the set of available vessels, 
+𝐷 consists of the set of demands, 𝐻 encapsulates the set of hub ports while 𝑅 is the set 
+
+=====PAGE=====
+4  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+of generated vessel routes. The sailing distance between ports 𝑖 and 𝑗 is represented by 
+𝑑𝑖𝑠𝑡!". 𝑞!" refers to the weekly demand between ports 𝑖 and 𝑗 and the capacity of a 
+vessel 𝑣 is defined as 𝑐𝑎𝑝#. While 𝑇$%& is the maximum allowable route cycle duration 
+𝑡𝑖𝑚𝑒', defines the total sailing time of route 𝑟. Costs involve the weekly operational 
+cost of each vessel (𝑐𝑜𝑠𝑡#), port-related cargo handling costs (𝑝𝑜𝑟𝑡𝑐𝑜𝑠𝑡!") including 
+loading, unloading, transhipment and fixed port call costs associated with transporting 
+cargo between ports 𝑖 and 𝑗. Revenues include 𝑟𝑒𝑣!" which is the revenue generated 
+per transported forty-foot-equivalent(FFE) container between ports 𝑖 and 𝑗 as well as 
+the weekly charter revenue generated when vessel 𝑣 is not deployed (𝑐ℎ𝑎𝑟𝑡𝑒𝑟#). 
+ 
+The defined decision variables consist of 𝑥#' which represents the assignment of ves-
+sel vessel 𝑣 to route 𝑟, The variables take the value 1 if vessel 𝑣 is assigned to route 𝑟 
+and the value of 0 otherwise. The decision variable 𝑦!" represents the amount of cargo 
+transported between ports 𝑖 and 𝑗 and the binary decision 𝑧!"' indicates whether de-
+mand between ports 𝑖 and 𝑗 is served through route 𝑟. The variable takes a value of 1 
+if the demand is routed through route 𝑟, and 0 otherwise. 
+3.1 
+Objective function 
+max 𝑍= D
+𝑟𝑒
+(!,")∈,
+𝑣!" .  𝑦!" + D
+charter#(1 −D
+𝑥#'
+'∈.
+)
+/∈0
+−D
+𝑝𝑜𝑟𝑡𝑐𝑜𝑠𝑡!" .  𝑦!"
+(!,")∈,
+−D
+D
+𝑐𝑜𝑠𝑡#
+'∈.
+#∈1
+ .  𝑥#'(1) 
+ 
+The objective function (EQ 1) maximises operational profit as well as cargo delivery. 
+Profit is calculated as the difference between transportation revenue and vessel operat-
+ing costs. The first term represents total transportation revenue, the second term repre-
+sents charter revenue generated from unused vessels, the third term represents port-
+related cargo handling and port call costs while the fourth term represents vessel oper-
+ational costs including fuel costs. Revenue is obtained after successfully transporting 
+demands between origin and destination ports while operational costs are derived from 
+vessel charter, route deployment costs and canal costs. Unused vessels which are char-
+tered out contribute to the profits. Route operating costs are from sailing duration rela-
+tive to the weekly scheduling horizon and port costs are calculated from the list of vis-
+ited ports. 
+ 
+The optimisation framework incorporates several operational constraints to ensure that 
+generated shipping networks remain feasible and realistic. Fleet availability constraints 
+enforces that each vessel may only be assigned to a single route to ensure feasible vessel 
+deployment across the network. Vessel capacity constraints make sure that the quantity 
+of transported cargo must not exceed the carrying capacity of the assigned vessels. De-
+mand satisfaction constraints prevent the transported cargo between an origin and des-
+tination pair from exceeding the total weekly demand. Route duration constraint limits 
+vessel routes so that they remain within the maximum allowable route cycle duration 
+to maintain feasible service schedules. Route feasibility constraints only allow cargo to 
+
+=====PAGE=====
+ 
+Contribution Title (shortened if too long) 
+5 
+be transported if a valid connection exists between the origin and destination ports 
+through direct services, feeder routes or trunk connections. Lastly, network connectiv-
+ity constraints ensure that all generated routes must maintain valid sailing connections 
+between consecutive ports.  
+4 
+Methods 
+This study proposes a Multi-Tier GA for solving the formulated LSNDP to generate 
+feasible and profitable LSN for large-scale benchmark instances. The methodology ex-
+plains how the hierarchical hub-and-spoke routing framework that combines hierar-
+chical network construction, demand-driven route allocation and evolutionary enhance-
+ments have been integrated in the base GA [26]. 
+ 
+In order to reduce excessive search space exploration while improving scalability and 
+network connectivity, a hierarchical Multi-Tier routing architecture has been imple-
+mented by incorporating structured network generation and demand-oriented heuristics 
+as depicted in Algorithm 1. Unlike several existing LSN design studies which primarily 
+adopt traditional hub-and-spoke structures with predefined or limited hub configura-
+tions [8], the proposed framework integrates a hierarchical Multi-Tier routing architec-
+ture that combines direct routes, trunk services, feeder connections and transhipment-
+based routing. First a directed LSN is constructed from demand, fleet, distance and port 
+data. Then the GA generates candidate LSNs through route assignment and vessel al-
+location strategies. Each of the generated candidate solutions is evaluated based on 
+metrics including profitability, demand delivery and fleet utilisation. The optimisation 
+process iteratively improves the population using crossover, mutation, elitism and tour-
+nament-based selection until convergence criteria are satisfied. 
+ 
+Algorithm 1: Multi-Tier GA for LSN Design 
+1:  Load benchmark dataset, generate port mappings, distance ma-
+trices and fleet. Classify and Assign ports to geographical re-
+gions and define regional transhipment hubs. 
+2:  Initialise population of candidate shipping networks 
+3:  For each candidate solution, generate routes and allocate 
+vessels according to demand distribution 
+4:  Evaluate fitness of all candidate solutions 
+5:  For each generation: 
+6:     Sort population according to fitness score and preserve 
+elite solutions 
+7:     Select parent solutions using tournament selection 
+8:     Generate offspring using crossover and adaptive mutation 
+9:     Evaluate offspring fitness and update population 
+10:    Update global best solution 
+11:    If convergence criterion is satisfied, exit 
+12: Return best shipping network solution 
+
+=====PAGE=====
+6  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+4.1 
+Network construction 
+This framework uses data from the Liner-Lib benchmark dataset [13] which contains 
+port information, sailing distances, vessel specifications and demand data.  The prob-
+lem is converted into a graph-based network by representing ports as nodes and sailing 
+routes between ports as directed edges. Demand matrices are also constructed using 
+weekly demand between origin and destination ports. Then the network is divided into 
+three major geographical regions consisting of Asia, Europe and America. Tranship-
+ment hubs are assigned within each region to support both intra-regional and inter-re-
+gional cargo flows. Vessel classes are categorised into trunk and feeder vessel groups 
+according to carrying capacity and vessel type. Candidate direct routes are first gener-
+ated from the highest-demand origin-destination pairs exceeding predefined demand 
+thresholds. Inter-regional demand is subsequently aggregated to generate hub-to-hub 
+trunk services. Feeder routes are then generated by connecting secondary ports to re-
+gional hubs using demand-weighted allocation strategies. Lastly, the remaining vessels 
+are assigned to regional loop services to improve local accessibility and increase overall 
+fleet utilisation. 
+4.2 
+Chromosome encoding 
+Each chromosome represents a complete shipping network consisting of vessel-route 
+assignments across the four routing tiers as shown in Fig 1. Initial candidate solutions 
+are generated using demand-oriented heuristics rather than purely random assignment. 
+Fig. 1. GA chromosome encoding representation
+ 
+4.3 
+Multi-Tier routing architecture 
+The proposed hierarchical routing structure helps to balance long-haul cargo transpor-
+tation with regional accessibility for shorter cargo movement while reducing network 
+fragmentation and excessive transhipment dependency. The architecture also prioritises 
+high-demand shipping corridors while maintaining feasible operational structures dur-
+ing the initialisation and optimisation processes. The proposed framework categorises 
+the LSN into four routing tiers including Direct routes (Tier 0), Trunk routes (Tier 1), 
+Feeder routes (Tier 2) and Regional loops (Tier 3). High-demand origin-destination 
+
+=====PAGE=====
+ 
+Contribution Title (shortened if too long) 
+7 
+pairs are assigned dedicated direct shipping services (Tier 0) to reduce transhipment 
+operations and improve cargo delivery efficiency and cost-effectiveness. Inter-regional 
+cargo movements are handled through high-capacity hub-to-hub trunk services (Tier 1) 
+connecting major transhipment hubs across geographical regions. Feeder services(Tier 
+2) connect secondary ports to regional hub ports to improve accessibility and cargo 
+delivery. Residual vessels are assigned to short regional circular services (Tier 3) to 
+improve local connectivity and make use of remaining fleet capacity. 
+4.4 
+Fitness evaluation 
+𝐹𝑖𝑡𝑛𝑒𝑠𝑠(𝑥) = 𝑍(𝑥) + 𝛼Q
+R
+𝑦!"
+(!,")∈,
+R
+𝑞!"
+(!,")∈,
+S (2) 
+The fitness function extends the objective function (EQ 1) by incorporating demand-
+fulfilment rewards. The final term represents weighted cargo demand fulfilment. The 
+parameter 𝛼 controls the importance of demand fulfilment within the optimisation pro-
+cess. The fitness function evaluates candidate solutions based profit and demand deliv-
+ery percentage. Cargo demand is evaluated hierarchically using direct transportation, 
+intra-regional hub routing and inter-regional multi-hop routing. Direct transportation is 
+prioritised whenever sufficient link capacity exists between origin and destination 
+ports. If direct transportation is unavailable the framework attempts feeder-to-hub rout-
+ing within the same geographical region. For inter-regional transportation the frame-
+work evaluates a three-stage routing structure consisting of origin feeder service, hub-
+to-hub trunk transportation and destination feeder service.  
+ 
+In order to prioritise demand fulfilment throughout the evolutionary optimisation pro-
+cess, the proposed framework applies aggressive demand-weight fitness scoring. Large 
+weighting coefficients (𝛼) for demand fulfilment relative to the direct profit component 
+of the fitness function are employed. Candidate solutions generating positive opera-
+tional profit receive an additional demand reward weighted by a coefficient of 2.2×106 
+while loss-generating solutions still receive a substantial demand weight of 1.3×106. 
+This scoring strategy was introduced following earlier experiments where the GA con-
+verged prematurely towards sparse but highly profitable solutions with limited vessel 
+deployment and poor demand delivery as vessels were just being chartered to generate 
+profit. The aggressive weighting mechanism therefore shifts the optimisation pressure 
+towards large-scale cargo fulfilment and broader network connectivity. This encour-
+ages the GA to deploy additional vessels, expand route coverage and construct denser 
+transportation networks capable of serving a substantially larger proportion of demand. 
+The fitness evaluation thus penalises infeasible route structures, excessive route dura-
+tion, insufficient vessel deployment, disconnected services and low-capacity network 
+configurations. 
+ 
+Tournament Selection, crossover, adaptive mutation and elitism 
+Tournament selection is employed to select parent chromosomes where candidate so-
+lutions compete in such a way that higher-quality solutions possess greater probability 
+of selection. This approach preserves population diversity throughout the optimisation 
+
+=====PAGE=====
+8  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+process. In addition, the crossover operator generates offspring solutions by inheriting 
+vessel-route assignments from two parent chromosomes. Individual vessel routes are 
+copied from either parent solution. This allows beneficial route structures and high-
+performing network components to propagate throughout subsequent generations with-
+out breaking route structures or violating constraints. Moreover, an adaptive mutation 
+strategy is implemented to balance exploration and exploitation during optimisation. 
+Higher mutation rates are applied during early generations to encourage broader search 
+space exploration while mutation intensity gradually decreases during later generations 
+to improve convergence stability. Mutation operations include route removal, route re-
+assignment, route regeneration, hub-to-hub route generation, feeder route generation 
+and random vessel redeployment. Elitism is incorporated to preserve high-quality so-
+lutions between generations. The best-performing individuals are copied directly into 
+subsequent generations to prevent the loss of strong candidate networks during evolu-
+tion. 
+5 
+Results and discussion 
+The proposed framework was evaluated using the WorldSmall benchmark instance 
+from the LINER-LIB dataset. The benchmark contains a large number of ports, vessel 
+classes and cargo demand combinations which makes it suitable for evaluating the 
+scalability and operational performance of the proposed optimisation framework. 
+ 
+Initial experiments were conducted on a baseline GA capable of balancing profits and 
+demand delivery. The baseline GA was developed based on the formulated LSNDP and 
+managed to generate profitable solutions across all benchmark instances. The baseline 
+GA performed well on smaller instances such as Baltic where it achieved 6.5 x 105 USD 
+profits on average while delivery 99.6% demand. However, the baseline demonstrated 
+limited scalability and poor performance on larger benchmark instances such as the 
+WorldSmall instance. These initial results indicated that demand fulfilment deteriorated 
+significantly as the network size increased with the WorldSmall benchmark only 
+achieving 15.9% demand delivery and 25.8 x 107 profit. Further analysis of the gener-
+ated LSN revealed that the optimisation process converged towards sparse profitable 
+solutions with limited fleet deployment. Premature convergence was also observed 
+which led to insufficient exploration for instances with larger search spaces.  
+ 
+In order to address these limitations, the Multi-Tier GA using the hierarchical frame-
+work introduced adaptive mutation and stagnation handling mechanisms. Diversifica-
+tion phases were also added when no significant improvement in fitness values were 
+observed for consecutive generations. The proposed hierarchical framework also ex-
+tends vessel cycle duration limits between 4 to 8 weeks provided that more vessels are 
+deployed so that each port is still serviced at least once bi-weekly. This modification 
+substantially increased feasible long-haul connectivity between Asia, Europe and 
+America. Subsequent experiments involved integrating a hierarchical hub-and-spoke 
+architecture consisting of trunk routes, feeder routes and regional loops in the proposed 
+
+=====PAGE=====
+ 
+Contribution Title (shortened if too long) 
+9 
+GA. Dedicated regional hubs were assigned to Asia, Europe and America while vessels 
+were segmented into trunk and feeder deployment groups. Larger vessels were hence 
+allocated to inter-regional trunk services while smaller vessels were used to connect 
+secondary ports to regional hubs. The final configuration of the Multi-Tier GA used a 
+population of 200 individuals with elitism preservation of 25 individuals. A minimum 
+direct route threshold of 260 FFE and an allocation of at least 75 direct routes as well 
+as a minimum vessel deployment threshold of 50 vessels across trunk and feeder vessel 
+classes were set. The optimisation process was executed until convergence or termina-
+tion criteria were satisfied with early stopping triggered if no improvement in fitness 
+score was observed over 30 consecutive generations. 
+ 
+The final results for the Multi-Tier GA reveal an profit of 37.2 x 106 USD and a maxi-
+mum profit of 37.2 x 106 USD. Demand delivery averaged at 91.5 % and peaked at 
+93.4% while the runtime had an average of 157.7 seconds. Only 171 vessels were used 
+to service the entire network which represent a 13.2 % improvement in fleet deployment 
+efficiency compared to the baseline GA. These results indicate that hierarchical routing 
+structure substantially improved network scalability and profitability without impacting 
+on computational efficiency. Only a 3% increase in runtime but a 47% increase in prof-
+its as well as a 73.7% in demand delivery were observed with the hierarchical frame-
+work. These results show a significant improvement from the baseline and the initial 
+results. 
+ 
+Fig. 2. Proposed GA’s convergence behaviour across generations 
+Moreover, the convergence behaviour of the proposed Multi-Tier GA demonstrates sta-
+ble optimisation performance across generations. Fig 2 shows that both profits and de-
+mand delivery improved consistently before stabilising around generation 180. Profit 
+was initially negative due to high operational cost of early networks but progressively 
+converged towards stable profitable solutions exceeding 37 million USD. Demand de-
+livery improved also improved rapidly before stabilising around 90% during later gen-
+erations where it maintained stable demand fulfilment performance. In addition, the 
+Multi-Tier GA started with around 220 vessels deployed but gradually reduced exces-
+sive fleet assignment to around 170 used vessels. This indicates that the optimisation 
+
+=====PAGE=====
+10  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+process progressively identified more cost effective and efficient service route config-
+urations.  Moreover, only 3% variance in profit was noted across 10 runs of the algo-
+rithm. The findings therefore reveal that convergence behaviour during later genera-
+tions had minimal fluctuations in profit, demand fulfilment and vessel deployment. This 
+indicates that the proposed Multi-Tier GA successfully converged towards a stable 
+near-optimal LSN. 
+ 
+The best solution generated by the Multi-Tier GA reveals that bunker (fuel) cost is the 
+largest contributor to the overall network cost, accounting for approximately 38% of 
+total operational costs. Cargo handling costs, which include loading costs, unloading 
+costs and transhipment costs represented around 29% while vessel charter costs con-
+tributed to 23% of total costs. Canal fees and port call fees account for much smaller 
+proportions. This new algorithm also reveals that the proposed framework strongly fa-
+vours short-direct services, two-port or three port services. Approximately 90% of the 
+cargo delivered was transhipped while only 10% was transported using direct services. 
+This behaviour reflects the importance of hub-and-spoke connectivity within large-
+scale global LSNs. Moreover, the framework prioritised high-demand inter-regional 
+corridors linking Asia, Europe and America. Demand delivery across regional pairs 
+exceeded 90% in all scenarios and this reinforces the need for strong global connectiv-
+ity within the Liner Shipping field. The findings as depicted also reveal that the Pana-
+max and Post-Panamax vessels contribute the majority of the used transportation ca-
+pacity while smaller feeder vessels primarily support regional hub connectivity.  
+ 
+The proposed Multi-Tier GA’s performance has been compared with existing studies 
+that use the Liner-Lib dataset for the WorldSmall instance. Although the compared 
+studies have minimisation objectives, the results are comparable as their negative ob-
+jective values correspond to profitable solutions. Koza et al. [15] achieve a profit of 
+3.27 × 10⁷ and 86.4% demand delivery. Karsten et al. [16] obtain profits of 3.15 × 10⁷ 
+and 82.3% demand delivery while Brouer et al. [13]  present a profit of −1.1 × 106 and 
+78.3% demand delivery. In contrast the proposed Multi-Tier GA achieved profits of 
+3.72 x 107 which represents an enhancement of 13.7 % higher profits on average when 
+compared to the best performing algorithm presented by Koza et al. [15]. Moreover, 
+the proposed Multi-Tier GA improves demand delivery by 12.9% and achieves 91.2% 
+demand fulfilment. Therefore, this comparison indicates that the proposed Multi-Tier 
+GA is not only competitive but performs better than existing algorithms for solving 
+global LSNs such as the WorldSmall benchmark instance. The higher demand delivery 
+is a result of the hierarchical routing which combines direct services, trunk routes, 
+feeder connections and transshipment-heavy cargo routing. 
+ 
+Overall, the results demonstrate that the proposed Multi-Tier GA with the hierarchical 
+framework is capable of generating highly profitable and scalable LSNs across large 
+benchmark instances while maintaining very strong demand delivery. 
+
+=====PAGE=====
+ 
+Contribution Title (shortened if too long) 
+11 
+6 
+Conclusion 
+This paper presented a Multi-Tier GA based on a hierarchical routing framework for 
+solving the LSNDP. Experimental results demonstrated strong performance across 
+multiple benchmark instances. Moreover, it performed very well on large-scale global 
+liner shipping instances such as WorldSmall where it achieved profit margins of over 
+37 million USD as well as 91.2% demand delivery while maintaining a stable conver-
+gence performance across multiple runs. Comparative analysis against other studies 
+shows that the proposed algorithm and framework achieve 13.7 higher profitability and 
+12.9% stronger demand delivery as compared to Koza et al. [15] while not compromis-
+ing on other costs or constraints in the formulated problem. This study proves that hi-
+erarchical hub-and-spoke routing, adaptive mutation strategies and demand-weighted 
+fitness evaluations offer a significant optimisation benefits in solving the LSNDP. 
+These mechanisms significantly improve scalability, inter-regional connectivity and 
+overall LSN effectiveness and computational efficiency while maintaining very strong 
+demand delivery performance above 90% for large-scale LSN. Future work can focus 
+on extending this framework to incorporate cargo time transit constraints, vessel speed 
+optimisation and hybrid metaheuristic approaches. 
+Acknowledgments. This work was funded by the Higher Education Commission, Mauritius 
+(HEC). The authors also acknowledge the University of Mauritius (UoM) for providing facilities 
+and resources for conducting this research. 
+Disclosure of Interests. The authors have no competing interests to declare that are relevant to 
+the content of this article.  
+References 
+1. Ulhaq MND, Sudiarso A (2023) A Liner Shipping Network Design Problem: A Systematic Literature 
+Review. Journal of Industrial Engineering and Education 1:171–184 
+2.  Kjeldsen KH (2017) Classification of Ship Routing and Scheduling Problems in Liner Shipping. 
+INFOR: 
+Information 
+Systems 
+and 
+Operational 
+Research 
+49:139–152. 
+https://doi.org/10.3138/INFOR.49.2.139 
+3.  Brouer BD, Desaulniers G, Pisinger D (2014) A matheuristic for the liner shipping network design 
+problem. Transp Res E Logist Transp Rev 72:42–59. https://doi.org/10.1016/J.TRE.2014.09.012 
+4.  Cheaitou A, Hamdan S, Larbi R (2020) Liner shipping network design with sensitive demand. Maritime 
+Business Review 6:293–313. https://doi.org/10.1108/MABR-10-2019-0045/FULL/PDF 
+5.  Christiansen M, Hellsten E, Pisinger D, Sacramento D, Vilhelmsen C (2020) Liner shipping network 
+design. Eur J Oper Res 286:1–20. https://doi.org/10.1016/J.EJOR.2019.09.057 
+6.  Lan X, Tao Q, Wu X (2023) Liner-Shipping Network Design with Emission Control Areas: A Real 
+Case Study. Sustainability 2023, Vol 15, Page 3734 15:3734. https://doi.org/10.3390/SU15043734 
+7.  Krogsgaard A, Pisinger D, Thorsen J (2018) A flow-first route-next heuristic for liner shipping network 
+design. Networks 72:358–381. https://doi.org/10.1002/NET.21819 
+8.  Zheng J, Meng Q, Sun Z (2015) Liner hub-and-spoke shipping network design. Transp Res E Logist 
+Transp Rev 75:32–48. https://doi.org/10.1016/J.TRE.2014.12.014 
+
+=====PAGE=====
+12  
+Rampersand Nirmal and Gukhool Oomesh 
+ 
+9.  Ameln M, Sand Fuglum J, Thun K, Andersson H, Stålhane M (2021) A new formulation for the liner 
+shipping network design problem. International Transactions in Operational Research 28:638–659. 
+https://doi.org/10.1111/ITOR.12659 
+10. Plum CEM, Pisinger D, Sigurd MM (2014) A service flow model for the liner shipping network design 
+problem. Eur J Oper Res 235:378–386. https://doi.org/10.1016/J.EJOR.2013.10.057 
+11. Thun K, Andersson H, Christiansen M (2016) Analyzing complex service structures in liner shipping 
+network design. Flexible Services and Manufacturing Journal 2016 29:3 29:535–552. 
+https://doi.org/10.1007/S10696-016-9262-6 
+12. Hellsten E, Koza DF, Contreras I, Cordeau JF, Pisinger D (2021) The transit time constrained fixed 
+charge 
+multi-commodity 
+network 
+design 
+problem. 
+Comput 
+Oper 
+Res 
+136:105511. 
+https://doi.org/10.1016/J.COR.2021.105511 
+13. Brouer BD, Alvarez JF, Plum CEM, Pisinger D, Sigurd MM (2013) A Base Integer Programming Model 
+and Benchmark Suite for Liner-Shipping Network Design. Transportation Science 48:281–312. 
+https://doi.org/10.1287/TRSC.2013.0471 
+14. Cariou P, Cheaitou A, Larbi R, Hamdan S (2018) Liner shipping network design with emission control 
+areas: A genetic algorithm-based approach. Transp Res D Transp Environ 63:604–621. 
+https://doi.org/10.1016/J.TRD.2018.06.020 
+15. Koza DF, Desaulniers G, Ropke S (2020) Integrated Liner Shipping Network Design and Scheduling. 
+Transportation Science 54:512–533. https://doi.org/10.1287/TRSC.2018.0888 
+16.  Vad Karsten C, Brouer BD, Pisinger D (2017) Competitive Liner Shipping Network Design. Comput 
+Oper Res 87:125–136. https://doi.org/10.1016/J.COR.2017.05.018 
+17.  Karsten CV, Brouer BD, Desaulniers G, Pisinger D (2017) Time constrained liner shipping network 
+design. Transp Res E Logist Transp Rev 105:152–162. https://doi.org/10.1016/J.TRE.2016.03.010 
+18.  Bartz-Beielstein T, Branke J, Mehnen J, Mersmann O (2014) Evolutionary Algorithms. Wiley Interdis-
+cip Rev Data Min Knowl Discov 4:178–195. https://doi.org/10.1002/WIDM.1124 
+19.  Dasgupta D, Michalewicz Z (1997) Evolutionary Algorithms — An Overview. Springer, Berlin, Hei-
+delberg 
+20.  De A, Mamanduru VKR, Gunasekaran A, Subramanian N, Tiwari MK (2016) Composite particle al-
+gorithm for sustainable integrated dynamic ship routing and scheduling optimization. Comput Ind Eng 
+96:201–215. https://doi.org/10.1016/J.CIE.2016.04.002 
+21.  Rampersand N, Gukhool O (2024) Enhanced Liner Shipping Network Design using Ant Colony Opti-
+misation. 4th International Conference on Next Generation Computing Applications, NextComp 2024 
+- Proceedings. https://doi.org/10.1109/NEXTCOMP63004.2024.10779786 
+22.  Holland JH (1992) Adaptation in Natural and Artificial Systems: An Introductory Analysis with Appli-
+cations to Biology, Control, and Artificial Intelligence. The MIT Press 
+23.  Gelareh S, Pisinger D (2011) Fleet deployment, network design and hub location of liner shipping com-
+panies. Transp Res E Logist Transp Rev 47:947–964. https://doi.org/10.1016/J.TRE.2011.03.002 
+24.  Yang L, Zheng J, Wang J (2025) Hub port location and routing for a single-hub feeder network: Effect 
+of 
+liner 
+shipping 
+network 
+connectivity. 
+Transp 
+Policy 
+(Oxf) 
+160:212–227. 
+https://doi.org/10.1016/J.TRANPOL.2024.11.009 
+25.  Lyu X, Jin JG, Wang Z (2026) Towards net-zero shipping: A multi-level optimization model for green 
+maritime corridors integrating bunker network, ship routes, and fleet deployment. Transp Res E Logist 
+Transp Rev 206:104595. https://doi.org/10.1016/J.TRE.2025.104595 
+26.  Goldberg DE, Holland JH (1979) Genetic Algorithms in Search, Optimization, and Machine Learning 
+David E. Goldberg The University of Alabama 

@@ -1,0 +1,12 @@
+@page { size: 1920px 1080px; margin: 0; }
+html.print, html.print body, html.print #root { height: auto; overflow: visible; }
+html.print body { user-select: text; touch-action: auto; }
+.print-root { background: var(--bg); }
+.print-page {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg);
+  break-after: page;
+  page-break-after: always;
+}
+.print-page:last-child { break-after: auto; page-break-after: auto; }

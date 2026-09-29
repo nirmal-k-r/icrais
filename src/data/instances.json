@@ -1,0 +1,62 @@
+[
+ {
+  "name": "Baltic",
+  "ports": 12,
+  "vessels": 6,
+  "base": {
+   "delivery": 54.8,
+   "profitM": 0.54,
+   "used": 5
+  },
+  "mt": {
+   "delivery": 66.0,
+   "profitM": 0.71,
+   "used": 6
+  }
+ },
+ {
+  "name": "WAF",
+  "ports": 20,
+  "vessels": 42,
+  "base": {
+   "delivery": 18.1,
+   "profitM": 0.78,
+   "used": 6
+  },
+  "mt": {
+   "delivery": 89.6,
+   "profitM": 3.9,
+   "used": 30
+  }
+ },
+ {
+  "name": "Mediterranean",
+  "ports": 39,
+  "vessels": 20,
+  "base": {
+   "delivery": 1.3,
+   "profitM": 0.03,
+   "used": 1
+  },
+  "mt": {
+   "delivery": 53.2,
+   "profitM": -0.51,
+   "used": 20
+  }
+ },
+ {
+  "name": "Pacific",
+  "ports": 45,
+  "vessels": 100,
+  "base": {
+   "delivery": 0.3,
+   "profitM": -6.61,
+   "used": 18
+  },
+  "mt": {
+   "delivery": 66.4,
+   "profitM": -0.97,
+   "used": 61
+  }
+ }
+]

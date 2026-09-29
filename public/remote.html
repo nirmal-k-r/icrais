@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<title>Slide remote</title>
+<style>
+  :root { color-scheme: light dark; --bg:#fafaf8; --ink:#111318; --cobalt:#1f3ef2; --violet:#6046d7; --hair:#e3e5e8; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#0d1017; --ink:#f6f7fa; --cobalt:#6f86ff; --violet:#9b87f5; --hair:#252b36; } }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin:0; height:100%; background:var(--bg); color:var(--ink); font-family: -apple-system, system-ui, sans-serif; touch-action: manipulation; }
+  main { height:100%; display:grid; grid-template-rows: 1fr 1fr auto; gap:14px; padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); }
+  button { font: inherit; border:0; border-radius:20px; color:#fff; font-weight:700; letter-spacing:-0.02em; }
+  .big { font-size: 15vw; } .next { background:var(--cobalt); } .prev { background:var(--violet); }
+  .row { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
+  .row button { background:transparent; color:var(--ink); border:2px solid var(--hair); font-size:15px; padding:16px 4px; font-weight:600; }
+  #s { text-align:center; font-size:14px; opacity:.6; min-height:1.2em; }
+</style>
+</head>
+<body>
+<main>
+  <button class="big next" data-c="next">Next</button>
+  <button class="big prev" data-c="prev">Back</button>
+  <div>
+    <div class="row">
+      <button data-c="prevScene">Scene back</button><button data-c="nextScene">Scene next</button>
+      <button data-c="black">Black</button><button data-c="theme">Theme</button>
+    </div>
+    <div id="s"></div>
+  </div>
+</main>
+<script>
+  const s = document.getElementById('s')
+  document.querySelectorAll('button[data-c]').forEach((b) => b.addEventListener('click', async () => {
+    navigator.vibrate?.(15)
+    try {
+      const j = await (await fetch(`/cmd/${b.dataset.c}`, { method: 'POST' })).json()
+      s.textContent = !j.ok ? 'Rejected' : j.listeners ? '' : 'Open the slides with ?remote first'
+    } catch { s.textContent = 'Cannot reach the server' }
+  }))
+</script>
+</body>
+</html>

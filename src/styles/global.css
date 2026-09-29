@@ -1,0 +1,23 @@
+@import '@fontsource-variable/hanken-grotesk/wght.css';
+@import '@fontsource/dm-mono/400.css';
+@import '@fontsource/dm-mono/500.css';
+@import './tokens.css';
+@import './print.css';
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+body {
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--ink);
+  touch-action: none;
+  overscroll-behavior: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Hanken Grotesk Variable', system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+.mono { font-family: 'DM Mono', ui-monospace, monospace; }
+/* overview / print need to scroll */
+.stage-cursor-hidden { cursor: none; }
