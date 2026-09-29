@@ -9,7 +9,7 @@ React + TypeScript + Motion. 28 scenes, 95 reveal steps, about 12:40 of speaking
 npm install
 npm run dev          # develop at http://localhost:5173
 npm run build        # -> dist/index.html (self-contained: JS, CSS, fonts and data inlined) and dist/remote.html
-npm start            # serve dist and the phone/watch remote at http://localhost:3000 (build first)
+npm start            # serve dist and the phone/watch remote at http://localhost:3015 (build first)
 npm run export:pdf   # -> exports/*.pdf (light, dark, speaker notes)
 npm test             # unit tests: navigation, claims ledger vs paper/solver source, scene registry, contrast
 npx playwright test  # e2e: full-show walk, touch, scroll, remote, print route (needs `npm run build` first)
@@ -38,7 +38,7 @@ rsync -av dist server ecosystem.config.cjs you@server:/opt/icrais/
 On the server (Node 18 or newer):
 ```bash
 cd /opt/icrais && pm2 start ecosystem.config.cjs && pm2 save
-curl http://127.0.0.1:3000/health        # {"ok":true,"listeners":0}
+curl http://127.0.0.1:3015/health        # {"ok":true,"listeners":0}
 ```
 
 **2. nginx.**
@@ -46,7 +46,7 @@ curl http://127.0.0.1:3000/health        # {"ok":true,"listeners":0}
 server {
     server_name icrais.unrism.com;
     location / {
-        proxy_pass http://127.0.0.1:3000;
+        proxy_pass http://127.0.0.1:3015;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header Connection '';

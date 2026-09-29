@@ -1,13 +1,13 @@
 // One small Node server for everything: serves the built slides AND the phone/watch remote.
 //   node server/server.mjs            (build first: npm run build)
-// No dependencies, no tokens. Env: PORT (default 3000), HOST (default 127.0.0.1).
+// No dependencies, no tokens. Env: PORT (default 3015), HOST (default 127.0.0.1).
 import http from 'node:http'
 import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', 'dist')
-const PORT = Number(process.env.PORT ?? 3000)
+const PORT = Number(process.env.PORT ?? 3015)
 const HOST = process.env.HOST ?? '127.0.0.1'
 const COMMANDS = new Set(['next', 'prev', 'nextScene', 'prevScene', 'home', 'end', 'black', 'theme'])
 const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.json': 'application/json', '.pdf': 'application/pdf', '.png': 'image/png', '.ico': 'image/x-icon' }
