@@ -43,9 +43,9 @@ test.describe('auto mode (the default): one press is one slide', () => {
       if (id === seen[seen.length - 1]) break
       seen.push(id)
     }
-    expect(seen).toHaveLength(31)
-    expect(new Set(seen).size).toBe(31)
-    expect(seen[30]).toBe('thanks')
+    expect(seen).toHaveLength(32)
+    expect(new Set(seen).size).toBe(32)
+    expect(seen[31]).toBe('thanks')
   })
 
   test('S switches to manual reveals and back', async ({ page }) => {

@@ -11,6 +11,7 @@ import { S04Lsndp } from '../scenes/S04Lsndp'
 import { S05Challenges } from '../scenes/S05Challenges'
 import { S05bRelated } from '../scenes/S05bRelated'
 import { S06WorldSmall } from '../scenes/S06WorldSmall'
+import { S07bWhyGA } from '../scenes/S07bWhyGA'
 import { S07Baseline } from '../scenes/S07Baseline'
 import { S08Framework } from '../scenes/S08Framework'
 import { S11Chromosome } from '../scenes/S11Chromosome'
@@ -58,7 +59,8 @@ export const mainScenes: SceneDef[] = [
   { id: 'challenges', act: 1, title: 'Why methods struggle', steps: 3, targetSeconds: 25, sources: ['paper.mipTime', 'paper.mipPorts'], autoMs: [2200, 2200], Component: S05Challenges },
   { id: 'related', act: 1, title: 'Related work', steps: 4, targetSeconds: 25, sources: [], autoMs: [2400, 2400, 2400], Component: S05bRelated },
   { id: 'worldsmall', act: 2, title: 'Why WorldSmall?', steps: 3, targetSeconds: 30, sources: ['inst.ports', 'inst.vessels', 'inst.odPairs', 'inst.demand'], autoMs: [2600, 2600], Component: S06WorldSmall },
-  { id: 'baseline', act: 2, title: 'Baseline GA', steps: 2, targetSeconds: 20, sources: ['paper.baselineBaltic', 'paper.baselineWS'], autoMs: [3000], Component: S07Baseline },
+  { id: 'whyga', act: 2, title: 'Why GA?', steps: 4, targetSeconds: 25, sources: [], autoMs: [2400, 2400, 2400], Component: S07bWhyGA },
+  { id: 'baseline', act: 2, title: 'Baseline GA not enough', steps: 2, targetSeconds: 20, sources: ['paper.baselineBaltic', 'paper.baselineWS'], autoMs: [3000], Component: S07Baseline },
   { id: 'framework', act: 3, title: 'What we propose', steps: 4, targetSeconds: 25, sources: [], autoMs: [2400, 2400, 2400], Component: S08Framework },
   { id: 'tiers', act: 3, title: 'Four service tiers', steps: 5, targetSeconds: 40, sources: [], autoMs: [1900, 1900, 1900, 1900], Component: S09Tiers },
   { id: 'journey', act: 3, title: 'Cargo journey', steps: 4, targetSeconds: 25, continuesFrom: 'tiers', sources: [], autoMs: [1600, 1900, 2100], Component: S10Journey },

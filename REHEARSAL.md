@@ -18,10 +18,10 @@
 3. [ ] **Results**: the paper values (≈ 91%, 15.9%, $37.2M) are labelled *Reported in the paper*; $36.2M / 92.0% / 168 are labelled *Example run (paper Fig. 2)*; nothing exploratory appears.
 4. [ ] **Interruption**: during an animation press → → ← quickly; the show lands on a coherent state. Jump to the conclusion from the overview (O).
 5. [ ] **Projection**: every scene legible at 1080p; **T** toggles dark without resetting progress.
-6. [ ] **Export**: 31 pages in order, final states, no controls, no appendix.
+6. [ ] **Export**: 32 pages in order, final states, no controls, no appendix.
 7. [ ] **Reduced motion**: **M** → reduce; same sequence and information via instant changes.
 
-## Timing run (target 13:45 of a 15:00 slot)
+## Timing run (target 14:10 of a 15:00 slot)
 Log your actual time per scene in the last column.
 
 | # | Scene | Steps | Target s | Cumulative | Actual |
@@ -35,34 +35,35 @@ Log your actual time per scene in the last column.
 | 6 | Related work | 4 | 25 | 2:35 | |
 | | **Act 2 · Why the larger case** | | | | |
 | 7 | Why WorldSmall? | 3 | 30 | 3:05 | |
-| 8 | Baseline GA | 2 | 20 | 3:25 | |
+| 8 | Why GA? | 4 | 25 | 3:30 | |
+| 9 | Baseline GA not enough | 2 | 20 | 3:50 | |
 | | **Act 3 · The contribution** | | | | |
-| 9 | What we propose | 4 | 25 | 3:50 | |
-| 10 | Four service tiers | 5 | 40 | 4:30 | |
-| 11 | Cargo journey | 4 | 25 | 4:55 | |
-| 12 | Chromosome | 4 | 40 | 5:35 | |
+| 10 | What we propose | 4 | 25 | 4:15 | |
+| 11 | Four service tiers | 5 | 40 | 4:55 | |
+| 12 | Cargo journey | 4 | 25 | 5:20 | |
+| 13 | Chromosome | 4 | 40 | 6:00 | |
 | | **Act 4 · How the search chooses** | | | | |
-| 13 | Two objectives | 3 | 20 | 5:55 | |
-| 14 | Fitness score | 5 | 40 | 6:35 | |
-| 15 | Fleet penalty | 3 | 25 | 7:00 | |
-| 16 | Genetic search | 4 | 35 | 7:35 | |
+| 14 | Two objectives | 3 | 20 | 6:20 | |
+| 15 | Fitness score | 5 | 40 | 7:00 | |
+| 16 | Fleet penalty | 3 | 25 | 7:25 | |
+| 17 | Genetic search | 4 | 35 | 8:00 | |
 | | **Act 5 · What the results show** | | | | |
-| 17 | Reported results | 4 | 35 | 8:10 | |
-| 18 | A WorldLarge solution | 5 | 40 | 8:50 | |
-| 19 | Convergence | 5 | 45 | 9:35 | |
-| 20 | Cost evolution | 3 | 30 | 10:05 | |
-| 21 | Cost breakdown | 3 | 20 | 10:25 | |
-| 22 | Regional delivery | 3 | 25 | 10:50 | |
-| 23 | Fleet | 2 | 15 | 11:05 | |
-| 24 | Published results | 3 | 25 | 11:30 | |
-| 25 | Other instances | 3 | 25 | 11:55 | |
+| 18 | Reported results | 4 | 35 | 8:35 | |
+| 19 | A WorldLarge solution | 5 | 40 | 9:15 | |
+| 20 | Convergence | 5 | 45 | 10:00 | |
+| 21 | Cost evolution | 3 | 30 | 10:30 | |
+| 22 | Cost breakdown | 3 | 20 | 10:50 | |
+| 23 | Regional delivery | 3 | 25 | 11:15 | |
+| 24 | Fleet | 2 | 15 | 11:30 | |
+| 25 | Published results | 3 | 25 | 11:55 | |
+| 26 | Other instances | 3 | 25 | 12:20 | |
 | | **Act 6 · Closing** | | | | |
-| 26 | Algorithmic lessons | 4 | 30 | 12:25 | |
-| 27 | What we learned | 3 | 30 | 12:55 | |
-| 28 | What next | 3 | 20 | 13:15 | |
-| 29 | Close | 3 | 25 | 13:40 | |
-| 30 | References | 1 | 0 | 13:40 | |
-| 31 | Thank you | 2 | 5 | 13:45 | |
+| 27 | Algorithmic lessons | 4 | 30 | 12:50 | |
+| 28 | What we learned | 3 | 30 | 13:20 | |
+| 29 | What next | 3 | 20 | 13:40 | |
+| 30 | Close | 3 | 25 | 14:05 | |
+| 31 | References | 1 | 0 | 14:05 | |
+| 32 | Thank you | 2 | 5 | 14:10 | |
 
 If you overrun, cut in this order: *Other instances*, *Fleet*, *GA + LSNDP*, then *Cost breakdown* (find them in the table above). *Related work* is the next candidate if you still need time.
 

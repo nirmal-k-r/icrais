@@ -18,7 +18,8 @@ export function S07Baseline({ step }: SceneProps) {
   const d = useDur()
   return (
     <div style={{ position: 'absolute', inset: 0 }}>
-      <Reveal show style={abs(120, 96, { ...T.h1 })}>A quick test: the baseline GA didn’t scale</Reveal>
+      <Reveal show style={abs(120, 96, { ...T.h1 })}>But a baseline GA is not enough</Reveal>
+      <Reveal show delay={0.2} style={abs(120, 176, { ...T.body, fontSize: 28, color: 'var(--ink-2)' })}>Same baseline GA, same profit-and-delivery objective: demand delivered on two instances.</Reveal>
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
         {[0, 25, 50, 75, 100].map((t) => (
           <g key={t}>
@@ -51,7 +52,7 @@ export function S07Baseline({ step }: SceneProps) {
       </svg>
       <Reveal show={step >= 1} delay={1.2} style={abs(1210, 640, { width: 590 })}>
         <div style={{ fontSize: 44, fontWeight: 600, letterSpacing: '-0.02em' }}>Profitable but sparse</div>
-        <div style={{ ...T.body, fontSize: 28, color: 'var(--ink-2)', marginTop: 10 }}>Vessels chartered out, little cargo moved.</div>
+        <div style={{ ...T.body, fontSize: 28, color: 'var(--ink-2)', marginTop: 10 }}>It converged early on networks with few vessels deployed and left most demand unserved.</div>
       </Reveal>
     </div>
   )
