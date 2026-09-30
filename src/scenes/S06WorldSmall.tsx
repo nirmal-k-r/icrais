@@ -1,6 +1,7 @@
 import { geoNaturalEarth1, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { claim, num } from '../content/claims'
 import { CountUp } from '../components/CountUp'
 import { ProvenanceCue } from '../components/ProvenanceCue'
@@ -37,7 +38,7 @@ export function S06WorldSmall({ step }: SceneProps) {
   return (
     <div style={{ position: 'absolute', inset: 0 }}>
       <Reveal show style={abs(120, 96, { ...T.h1 })}>Why WorldSmall?</Reveal>
-      <Reveal show delay={0.2} style={abs(120, 186, { ...T.body, color: 'var(--muted)' })}>A global LINER-LIB instance</Reveal>
+      <Reveal show delay={0.2} style={abs(120, 186, { ...T.body, color: 'var(--muted)' })}>A global LINER-LIB instance ({cite('brouer2013')})</Reveal>
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
         <RevealG show dur={0.8}><path d={landPath} fill="var(--hair)" /></RevealG>
         {[...pts].sort((a, b) => a.xy[0] - b.xy[0]).map((p, i) => (

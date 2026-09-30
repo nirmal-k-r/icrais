@@ -15,6 +15,8 @@
   .big { font-size: 15vw; } .next { background:var(--cobalt); } .prev { background:var(--violet); }
   .row { display:grid; grid-template-columns: repeat(4, 1fr); gap:10px; }
   .row button { background:transparent; color:var(--ink); border:2px solid var(--hair); font-size:15px; padding:16px 4px; font-weight:600; }
+  .watch { width:100%; margin-top:12px; background:transparent; color:var(--ink); border:2px solid var(--cobalt); font-size:16px; padding:16px; font-weight:600; }
+  .watch.on { background:var(--cobalt); color:#fff; }
   #s { text-align:center; font-size:14px; opacity:.6; min-height:1.2em; }
 </style>
 </head>
@@ -27,18 +29,50 @@
       <button data-c="prevScene">Scene back</button><button data-c="nextScene">Scene next</button>
       <button data-c="black">Black</button><button data-c="theme">Theme</button>
     </div>
+    <button id="watch" class="watch">Start watch mode</button>
     <div id="s"></div>
   </div>
 </main>
 <script>
   const s = document.getElementById('s')
-  document.querySelectorAll('button[data-c]').forEach((b) => b.addEventListener('click', async () => {
-    navigator.vibrate?.(15)
+  async function send(c) {
     try {
-      const j = await (await fetch(`/cmd/${b.dataset.c}`, { method: 'POST' })).json()
+      const j = await (await fetch(`/cmd/${c}`, { method: 'POST' })).json()
       s.textContent = !j.ok ? 'Rejected' : j.listeners ? '' : 'Open the slides with ?remote first'
     } catch { s.textContent = 'Cannot reach the server' }
-  }))
+  }
+  document.querySelectorAll('button[data-c]').forEach((b) => b.addEventListener('click', () => { navigator.vibrate?.(15); send(b.dataset.c) }))
+
+  // Watch mode: the phone plays a silent track and registers as "Now Playing", so the Apple Watch media controls drive the slides.
+  //   Double Tap (play/pause) = Next    skip forward = Next    skip back = Back
+  const watch = document.getElementById('watch')
+  let audio = null
+  function silentWav() {
+    const rate = 8000, n = rate * 2, buf = new ArrayBuffer(44 + n), v = new DataView(buf)
+    const str = (o, t) => [...t].forEach((c, k) => v.setUint8(o + k, c.charCodeAt(0)))
+    str(0, 'RIFF'); v.setUint32(4, 36 + n, true); str(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true)
+    v.setUint16(22, 1, true); v.setUint32(24, rate, true); v.setUint32(28, rate, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true)
+    str(36, 'data'); v.setUint32(40, n, true)
+    for (let k = 0; k < n; k++) v.setUint8(44 + k, 128 + (k % 2)) // inaudible, but not digital zero so iOS keeps the session alive
+    return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }))
+  }
+  watch.addEventListener('click', async () => {
+    if (audio) { audio.pause(); audio = null; watch.textContent = 'Start watch mode'; watch.classList.remove('on'); s.textContent = 'Watch mode off'; return }
+    audio = new Audio(silentWav()); audio.loop = true
+    try { await audio.play() } catch { audio = null; s.textContent = 'Could not start audio. Tap again.'; return }
+    const ms = navigator.mediaSession
+    if (ms) {
+      ms.metadata = new MediaMetadata({ title: 'Slides remote', artist: 'ICRAIS 2026', album: 'Double Tap = next' })
+      const step = (c) => { send(c); audio?.play(); ms.playbackState = 'playing' }
+      ms.setActionHandler('nexttrack', () => step('next'))
+      ms.setActionHandler('previoustrack', () => step('prev'))
+      ms.setActionHandler('play', () => step('next'))   // Double Tap toggles play/pause: both mean "next"
+      ms.setActionHandler('pause', () => step('next'))
+      ms.playbackState = 'playing'
+    }
+    watch.textContent = 'Watch mode on (keep this page open)'; watch.classList.add('on')
+    s.textContent = 'On the watch: Now Playing. Double Tap = next, skip buttons = next or back.'
+  })
 </script>
 </body>
 </html>

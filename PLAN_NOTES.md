@@ -64,3 +64,11 @@
 - **iPad swipe fixed and widened.** Touch now uses real touch events (iPad Safari can drop pointer streams), with swipe (left/right), tap (right side next, left third back), tap on the bottom strip to reveal controls (there is no mouse-move on an iPad), and scroll-wheel/trackpad scroll (one gesture is one step). Synthesised clicks after a handled touch are cancelled so a tap can never hit the slider that just appeared. Verified with real touch events in Chromium and on the WebKit engine with an iPad profile; not on a physical iPad.
 - **Simpler server, no tokens.** `server/server.mjs` serves `dist/` and the remote (`/events`, `/cmd/<name>`, `/remote`); nginx just proxies the domain to it. Open the presenter page with `?remote`. Old token relay and `docs/REMOTE.md` removed; the README replaces them.
 - `index.html` now has an inline favicon and iPad web-app meta tags; it has no external references.
+
+- Phone remote page got a **watch mode** (silent audio + Media Session): Apple Watch Double Tap and the Now Playing skip buttons drive next/back. Tested that it starts and registers; not on a physical watch.
+
+## Feedback round 6 (academic references), applied
+- New `src/content/references.ts` (18 references): 14 taken verbatim from the paper's bibliography (authors and year verified against `sources/paper.txt` by a test), 4 added after a web lookup with DOI or ISBN: Marler and Arora 2004, Psaraftis and Kontovas 2013, Blum et al. 2011, Goldberg 1989. The paper's own entry [26] (Goldberg and Holland 1979) is garbled, so Goldberg 1989 is cited instead; Brouer et al. is cited as 2013 as in the paper although it is in the 2014 volume. Both are worth fixing in the camera-ready version.
+- Citations added in place to: problem (NP-hard), challenges (one per column), WorldSmall (LINER-LIB), tiers (hub-and-spoke), fitness (weighted sum), genetic search, published comparison (names now come from the reference labels; the two Karsten 2017 papers are 2017a and 2017b), and what comes next.
+- New slide 6 "Related work" (exact methods, hub-and-spoke, metaheuristics and hybrids, this work) and a final "References" slide after Thank you (backup for questions). The speaker-notes PDF gets a references page with DOIs and a Q&A entry on where the references come from.
+- 30 scenes, 100 steps, about 13:10 of speaking (the test limit was raised to 14 minutes).

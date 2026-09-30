@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import conv from '../data/figrun-convergence.json'
 import { claim, num } from '../content/claims'
 import { ProvenanceCue } from '../components/ProvenanceCue'
@@ -69,8 +70,8 @@ export function S13Fitness({ step }: SceneProps) {
       <Reveal show={step >= 3} delay={0.6} style={abs(1080, 760, { width: 700, ...T.h2, fontSize: 40 })}>
         When profit turns positive, every delivered point becomes worth more.
       </Reveal>
-      <Reveal show={step >= 4} style={abs(1800 - 700, 950, { width: 700, ...T.label, color: 'var(--muted)', textAlign: 'right' })}>
-        A weighted scalar score, not a Pareto front.
+      <Reveal show={step >= 4} style={abs(900, 950, { width: 900, ...T.label, color: 'var(--muted)', textAlign: 'right' })}>
+        A weighted scalar score, not a Pareto front ({cite('marler2004')}).
       </Reveal>
       <ProvenanceCue kind="figrun" show={step >= 3} />
     </div>

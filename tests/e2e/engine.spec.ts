@@ -43,24 +43,24 @@ test('reload restores position; theme toggle keeps it', async ({ page }) => {
 test('home/end and overview jump', async ({ page }) => {
   await open(page)
   await page.keyboard.press('End')
-  expect(await page.evaluate(() => location.hash)).toBe('#/thanks/1')
+  expect(await page.evaluate(() => location.hash)).toBe('#/references/0')
   await page.keyboard.press('Home')
   expect(await page.evaluate(() => location.hash)).toBe('#/title/0')
   await page.keyboard.press('o')
-  await page.getByText('9. Four service tiers').click()
+  await page.getByText('10. Four service tiers').click()
   expect(await page.evaluate(() => location.hash)).toBe('#/tiers/0')
 })
 
 test('print route renders one page per scene', async ({ page }) => {
   await page.goto(url + '?print')
   await expect(page.locator('[data-ready="true"]')).toBeVisible()
-  await expect(page.locator('.print-page')).toHaveCount(28)
+  await expect(page.locator('.print-page')).toHaveCount(30)
 })
 
 test.describe('full show', () => {
   test.use({ offline: true })
 
-  test('forward walk visits all 95 states in order, then walks back identically', async ({ page }) => {
+  test('forward walk visits all 100 states in order, then walks back identically', async ({ page }) => {
     await open(page)
     const seen: string[] = [await page.evaluate(() => location.hash)]
     for (let i = 0; i < 200; i++) {
@@ -70,11 +70,11 @@ test.describe('full show', () => {
       if (h === seen[seen.length - 1]) break
       seen.push(h)
     }
-    expect(seen).toHaveLength(95)
+    expect(seen).toHaveLength(100)
     expect(seen[0]).toBe('#/title/0')
-    expect(seen[94]).toBe('#/thanks/1')
-    const back: string[] = [seen[94]]
-    for (let i = 0; i < 94; i++) {
+    expect(seen[99]).toBe('#/references/0')
+    const back: string[] = [seen[99]]
+    for (let i = 0; i < 99; i++) {
       await page.keyboard.press('ArrowLeft')
       await page.waitForTimeout(25)
       back.push(await page.evaluate(() => location.hash))
@@ -100,7 +100,7 @@ test.describe('full show', () => {
     page.on('console', (m) => m.type() === 'error' && errs.push(m.text()))
     await page.goto(url + '?print')
     await expect(page.locator('[data-ready="true"]')).toBeVisible()
-    await expect(page.locator('.print-page')).toHaveCount(28)
+    await expect(page.locator('.print-page')).toHaveCount(30)
     expect(errs).toEqual([])
   })
 
@@ -209,7 +209,7 @@ test.describe('scene scrubbing', () => {
     await page.mouse.move(400, 400)
     const slider = page.getByRole('slider', { name: /jump to scene/i })
     await slider.focus()
-    await slider.fill('12')
+    await slider.fill('13')
     await expect.poll(() => page.evaluate(() => location.hash)).toMatch(/^#\/fitness\/0$/)
   })
 })

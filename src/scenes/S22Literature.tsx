@@ -1,13 +1,14 @@
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { claim, num } from '../content/claims'
 import { Reveal, RevealG } from '../components/Reveal'
 import { ChartPanel } from '../components/charts/ChartPanel'
 import { T, abs } from '../styles/type'
 
 const pts = [
-  { name: 'Brouer et al. (2013)', p: 'lit.brouer.profit', dl: 'lit.brouer.delivery', at: 0, dx: 20, dy: 38 },
-  { name: 'Karsten et al. (2017)', p: 'lit.karsten.profit', dl: 'lit.karsten.delivery', at: 0, dx: -18, dy: -34 },
-  { name: 'Koza et al. (2020)', p: 'lit.koza.profit', dl: 'lit.koza.delivery', at: 0, dx: 18, dy: 52 },
+  { name: cite('brouer2013'), p: 'lit.brouer.profit', dl: 'lit.brouer.delivery', at: 0, dx: 20, dy: 38 },
+  { name: cite('karsten2017a'), p: 'lit.karsten.profit', dl: 'lit.karsten.delivery', at: 0, dx: -18, dy: -34 },
+  { name: cite('koza2020'), p: 'lit.koza.profit', dl: 'lit.koza.delivery', at: 0, dx: 18, dy: 52 },
 ]
 
 export function S22Literature({ step }: SceneProps) {

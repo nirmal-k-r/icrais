@@ -16,13 +16,13 @@ describe('scene registry', () => {
     }
   })
   it('matches the planned size and timing', () => {
-    expect(mainScenes).toHaveLength(28)
+    expect(mainScenes).toHaveLength(30)
     const steps = mainScenes.reduce((t, s) => t + s.steps, 0)
     const secs = mainScenes.reduce((t, s) => t + s.targetSeconds, 0)
     expect(steps).toBeGreaterThanOrEqual(80)
-    expect(steps).toBeLessThanOrEqual(100)
+    expect(steps).toBeLessThanOrEqual(110)
     expect(secs).toBeGreaterThanOrEqual(11 * 60)
-    expect(secs).toBeLessThanOrEqual(13 * 60)
+    expect(secs).toBeLessThanOrEqual(14 * 60)
   })
   it('continuesFrom refers to the immediately preceding scene', () => {
     mainScenes.forEach((s, i) => {

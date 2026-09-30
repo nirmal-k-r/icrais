@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { useId } from 'react'
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { claim, num } from '../content/claims'
 import { Reveal, RevealG } from '../components/Reveal'
 import { ChartLine, ChartPanel } from '../components/charts/ChartPanel'
@@ -103,6 +104,9 @@ export function S15Search({ step }: SceneProps) {
           </ChartPanel>
         )}
       </svg>
+      <Reveal show style={abs(120, 1000, { ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)', width: 1680 })}>
+        {`Genetic algorithms: ${cite('holland1992', 'goldberg1989')}. Applied to liner network design by ${cite('cariou2018')}`}
+      </Reveal>
       {cfg.map(([k, v], i) => (
         <Reveal key={k} show={step >= 3} delay={i * 0.06} style={abs(120 + (i % 4) * 430, 790 + Math.floor(i / 4) * 110, { width: 400 })}>
           <div style={{ ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)' }}>{k}</div>

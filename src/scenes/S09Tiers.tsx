@@ -1,4 +1,5 @@
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { Reveal, RevealG } from '../components/Reveal'
 import { SvgText } from '../components/network/parts'
 import { TiersNetwork, type Layers } from '../components/network/TiersNetwork'
@@ -31,6 +32,7 @@ export function S09Tiers({ step }: SceneProps) {
           )
         })}
         <SvgText x={1800} y={1012} anchor="end" size={24} show={step >= 4} delay={0.6}>Built in this order, guided by demand</SvgText>
+        <SvgText x={120} y={1012} size={22} show={step >= 2}>{`Hub-and-spoke designs: ${cite('zheng2015', 'gelareh2011')}`}</SvgText>
       </svg>
     </div>
   )

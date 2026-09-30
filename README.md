@@ -2,7 +2,7 @@
 
 *A Multi-Tier Genetic Algorithm for Large-Scale Liner Shipping Network Design*: Nirmal Rampersand & Oomesh Gukhool.
 
-React + TypeScript + Motion. 28 scenes, 95 reveal steps, about 12:40 of speaking. The built site is one self-contained file and runs fully offline.
+React + TypeScript + Motion. 30 scenes, 100 reveal steps, about 13:05 of speaking. The built site is one self-contained file and runs fully offline.
 
 ## Commands
 ```bash
@@ -75,6 +75,10 @@ Other commands: `nextScene`, `prevScene`, `home`, `end`, `black`, `theme`. Audie
 4. Create the two Shortcuts on the iPhone, run them there, then run them from the watch.
 5. Try Double Tap (Series 9, Series 10, Ultra 2) and AssistiveTouch, and check the delay on the venue network.
 
+**Double Tap on the watch (watch mode).** Double Tap cannot run a Shortcut, but it controls media. On the iPhone open
+`/remote`, tap **Start watch mode** and keep the page open (the screen may lock). The phone then plays a silent track and shows as
+"Now Playing" on the watch: **Double Tap = next**, the watch's **skip forward = next** and **skip back = Back**.
+
 If the watch misbehaves, the keyboard, touch and phone remote keep working. I tested the commands end to end in a browser, not on a physical watch or iPad.
 
 **5. iPad.** For a full-screen look, Share, then **Add to Home Screen**, and open it from the icon.
@@ -85,6 +89,7 @@ If the watch misbehaves, the keyboard, touch and phone remote keep working. I te
 - Redeploying: rebuild, `rsync` again, `pm2 restart icrais`.
 
 ## How it is organised
+- `src/content/references.ts`: the bibliography. 14 entries are copied from the paper's own reference list; 4 were added after looking them up (DOI or ISBN recorded). Slides cite with `cite('plum2014')`; tests check each entry against `sources/paper.txt`, that every citation exists and that every reference is cited.
 - `src/content/claims.ts`: **every number shown on screen**, with a status (published, figure-run, instance, illustrative, derived, exploratory) and, where possible, a quote that a test verifies against `sources/paper.txt` or `sources/solver_ga_v20_b.py`.
 - `src/content/scenes.ts`: scene registry (ids, steps, timing, claim ids). `src/scenes/S*.tsx`: one file per scene, rendering a pure function of `step`. `src/content/notes.ts`: speaker notes and Q&A prep.
 - `src/engine/`: 1920×1080 stage, navigation reducer, keyboard, touch and scroll input, overview and help chrome, print view, preflight, remote listener.

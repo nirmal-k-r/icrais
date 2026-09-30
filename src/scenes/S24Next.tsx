@@ -1,11 +1,12 @@
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { Reveal } from '../components/Reveal'
 import { T, abs } from '../styles/type'
 
 const rows = [
-  { k: 'Transit-time constraints', d: 'for time-sensitive cargo such as food' },
-  { k: 'Vessel speed optimisation', d: 'speed per route, trading fuel against time' },
-  { k: 'Hybrid metaheuristics', d: 'pairing the GA with other search methods' },
+  { k: 'Transit-time constraints', d: `for time-sensitive cargo such as food (${cite('hellsten2021', 'karsten2017b')})` },
+  { k: 'Vessel speed optimisation', d: `speed per route, trading fuel against time (${cite('psaraftis2013')})` },
+  { k: 'Hybrid metaheuristics', d: `pairing the GA with other search methods (${cite('blum2011', 'krogsgaard2018')})` },
 ]
 
 export function S24Next({ step }: SceneProps) {

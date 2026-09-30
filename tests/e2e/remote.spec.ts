@@ -54,3 +54,14 @@ test('a page opened without ?remote is not controlled (so the audience is unaffe
   await page.waitForTimeout(400)
   expect(await page.evaluate(() => location.hash)).toBe('#/tiers/1')
 })
+
+test('the phone remote page starts watch mode: silent audio plays and Now Playing is registered', async ({ page }) => {
+  const errs: string[] = []
+  page.on('pageerror', (e) => errs.push(String(e)))
+  await page.goto(`${site}/remote`)
+  await page.getByRole('button', { name: /start watch mode/i }).click()
+  await expect(page.getByRole('button', { name: /watch mode on/i })).toBeVisible()
+  expect(await page.evaluate(() => navigator.mediaSession?.metadata?.title)).toBe('Slides remote')
+  expect(await page.evaluate(() => navigator.mediaSession?.playbackState)).toBe('playing')
+  expect(errs).toEqual([])
+})

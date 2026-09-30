@@ -8,6 +8,7 @@ import { S17Convergence } from '../scenes/S17Convergence'
 import { S03Translate } from '../scenes/S03Translate'
 import { S04Lsndp } from '../scenes/S04Lsndp'
 import { S05Challenges } from '../scenes/S05Challenges'
+import { S05bRelated } from '../scenes/S05bRelated'
 import { S06WorldSmall } from '../scenes/S06WorldSmall'
 import { S07Baseline } from '../scenes/S07Baseline'
 import { S08Framework } from '../scenes/S08Framework'
@@ -28,6 +29,7 @@ import { S23Findings } from '../scenes/S23Findings'
 import { S24Next } from '../scenes/S24Next'
 import { S25Close } from '../scenes/S25Close'
 import { S27Thanks } from '../scenes/S27Thanks'
+import { S28References } from '../scenes/S28References'
 
 export interface SceneProps {
   step: number
@@ -51,6 +53,7 @@ export const mainScenes: SceneDef[] = [
   { id: 'translate', act: 1, title: 'GA + LSNDP', steps: 3, targetSeconds: 15, sources: [], Component: S03Translate },
   { id: 'lsndp', act: 1, title: 'The problem', steps: 5, targetSeconds: 40, sources: [], Component: S04Lsndp },
   { id: 'challenges', act: 1, title: 'Why methods struggle', steps: 3, targetSeconds: 25, sources: ['paper.mipTime', 'paper.mipPorts'], Component: S05Challenges },
+  { id: 'related', act: 1, title: 'Related work', steps: 4, targetSeconds: 25, sources: [], Component: S05bRelated },
   { id: 'worldsmall', act: 2, title: 'Why WorldSmall?', steps: 3, targetSeconds: 30, sources: ['inst.ports', 'inst.vessels', 'inst.odPairs', 'inst.demand'], Component: S06WorldSmall },
   { id: 'baseline', act: 2, title: 'Baseline GA', steps: 2, targetSeconds: 20, sources: ['paper.baselineBaltic', 'paper.baselineWS'], Component: S07Baseline },
   { id: 'framework', act: 3, title: 'What we propose', steps: 4, targetSeconds: 25, sources: [], Component: S08Framework },
@@ -74,6 +77,7 @@ export const mainScenes: SceneDef[] = [
   { id: 'next', act: 6, title: 'What next', steps: 3, targetSeconds: 20, sources: [], Component: S24Next },
   { id: 'close', act: 6, title: 'Close', steps: 3, targetSeconds: 25, sources: ['paper.delivery', 'paper.profit'], Component: S25Close },
   { id: 'thanks', act: 6, title: 'Thank you', steps: 2, targetSeconds: 5, sources: [], Component: S27Thanks },
+  { id: 'references', act: 6, title: 'References', steps: 1, targetSeconds: 0, sources: [], Component: S28References },
 ]
 export const appendixScenes: SceneDef[] = []
 

@@ -1,4 +1,5 @@
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { claim } from '../content/claims'
 import { Reveal, RevealG } from '../components/Reveal'
 import { DrawLink } from '../components/network/parts'
@@ -7,9 +8,9 @@ import { T, abs } from '../styles/type'
 const cw = 480
 const ch = 240
 const cols = [
-  { n: '01', k: 'Scalability', d: 'Performance degrades badly as ports and demand grow.', x: 120 },
-  { n: '02', k: 'Efficiency', d: 'Computation time grows exponentially with network size.', x: 720 },
-  { n: '03', k: 'Effectiveness', d: 'Profit-driven search can leave most demand undelivered.', x: 1320 },
+  { n: '01', k: 'Scalability', d: 'Performance degrades badly as ports and demand grow.', x: 120, c: cite('christiansen2020') },
+  { n: '02', k: 'Efficiency', d: 'Computation time grows exponentially with network size.', x: 720, c: cite('plum2014') },
+  { n: '03', k: 'Effectiveness', d: 'Profit-driven search can leave most demand undelivered.', x: 1320, c: cite('cheaitou2020') },
 ]
 const path = (f: (u: number) => number) =>
   Array.from({ length: 41 }, (_, i) => `${i ? 'L' : 'M'}${((i / 40) * cw).toFixed(1)} ${(ch - f(i / 40) * ch).toFixed(1)}`).join(' ')
@@ -38,6 +39,7 @@ export function S05Challenges({ step }: SceneProps) {
           <div className="mono" style={{ ...T.label, color: 'var(--muted)' }}>{c.n}</div>
           <div style={{ fontSize: 64, fontWeight: 600, letterSpacing: '-0.03em', margin: '10px 0 14px' }}>{c.k}</div>
           <div style={{ ...T.body, fontSize: 30, color: 'var(--ink-2)' }}>{c.d}</div>
+          <div style={{ ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)', marginTop: 10 }}>{c.c}</div>
         </Reveal>
       ))}
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>

@@ -1,4 +1,5 @@
 import type { SceneProps } from '../content/scenes'
+import { cite } from '../content/references'
 import { Reveal, RevealG } from '../components/Reveal'
 import { DrawLink, Port } from '../components/network/parts'
 import { Mover } from '../components/network/Mover'
@@ -46,7 +47,10 @@ export function S04Lsndp({ step }: SceneProps) {
           Coupled decisions: assigning one vessel changes capacity everywhere else.
         </div>
       </Reveal>
-      <Reveal show={step >= 4} style={abs(120, 930, { ...T.label, color: 'var(--ink-2)' })}>NP-hard problem studied for decades</Reveal>
+      <Reveal show={step >= 4} style={abs(120, 920, { width: 1000 })}>
+        <div style={{ ...T.label, color: 'var(--ink-2)' }}>NP-hard problem studied for decades</div>
+        <div style={{ ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)', marginTop: 4 }}>{cite('brouer2014', 'christiansen2020')}</div>
+      </Reveal>
       <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0 }}>
         <DrawLink d={chainD(svcC)} tier="loop" show={step >= 1} delay={0.5} strokeWidth={5} />
         <DrawLink d={chainD(svcB)} tier="feeder" show={step >= 1} delay={0.25} />

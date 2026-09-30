@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { SceneDef } from '../content/scenes'
 import { notes, qaNotes } from '../content/notes'
+import { formatRef, sortedReferences } from '../content/references'
 import { SceneEnvCtx } from './motion'
 import { STAGE_H, STAGE_W } from './Stage'
 
@@ -57,6 +58,16 @@ export function PrintView({ scenes, withNotes }: { scenes: SceneDef[]; withNotes
           )}
         </section>
       ))}
+      {withNotes && (
+        <section className="print-page" style={{ width: STAGE_W, height: STAGE_H, padding: 72 }}>
+          <h1 style={{ marginTop: 0 }}>References (with DOI or ISBN)</h1>
+          {sortedReferences().map((r) => (
+            <p key={r.id} style={{ fontSize: 20, lineHeight: 1.3, margin: '0 0 10px' }}>
+              {formatRef(r)}. {r.doi ? `https://doi.org/${r.doi}` : r.isbn ? `ISBN ${r.isbn}` : ''}{r.source === 'added' ? ' (added, not in the paper)' : ''}
+            </p>
+          ))}
+        </section>
+      )}
       {withNotes && qaNotes.length > 0 && (
         <section className="print-page" style={{ width: STAGE_W, height: STAGE_H, padding: 96 }}>
           <h1>Q&amp;A prep</h1>

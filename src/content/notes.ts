@@ -10,6 +10,8 @@ export const notes: Record<string, string> = {
     'A liner network is ports, ships, cargo and routes. Ships call at ports, load, unload and transship containers, then move on along fixed loops. The decisions are coupled: putting a vessel on one route changes capacity elsewhere. The problem is NP-hard and has been studied for decades. The aim is to maximise profit while delivering the weekly demand.',
   challenges:
     'Existing approaches struggle on three fronts. Scalability: exact methods take over 10,800 seconds on a 19-port instance. Efficiency: the search space grows combinatorially. Effectiveness: methods that chase profit or simplify routing can leave a lot of demand undelivered on global networks.',
+  related:
+    'Prior work falls into three groups. Exact methods, such as the service-flow model of Plum and colleagues, give high-quality solutions but the run time degrades rapidly as networks grow; Brouer and colleagues\' matheuristic is a scalable step away from that. Hub-and-spoke designs by Zheng and by Gelareh and Pisinger scale better, but rely on predefined hubs and simplified routing. Metaheuristics and hybrids, including the genetic algorithm of Cariou and colleagues, Koza and colleagues, and Krogsgaard and colleagues, reach global instances such as WorldSmall but need careful tuning. Our contribution sits in the gap: service tiers built from demand, with delivered cargo rewarded in the search.',
   worldsmall:
     'We chose WorldSmall because we wanted to move beyond a small regional network. 47 ports, 263 vessels, 1,764 origin-destination pairs and about 128,000 FFE per week. Cargo must cross regions and connect through different vessel classes. Note: WorldSmall does not contain Port Louis; the Mauritius example in the opening is only an illustration.',
   baseline:
@@ -52,6 +54,8 @@ export const notes: Record<string, string> = {
     'What we found: rewarding delivery and penalising sparse fleets steers the search away from profitable-but-empty networks; the service hierarchy keeps inter-regional cargo connected; and together they reached about 91% delivery and $37.2 million profit on WorldSmall. We did not isolate each component with an ablation.',
   next:
     'Next: transit-time constraints for time-sensitive cargo such as food; vessel-speed optimisation trading fuel against time; and hybrid metaheuristics.',
+  references:
+    'Backup slide for questions. The full list with DOIs is on the last pages of the speaker-notes PDF.',
   thanks:
     'Thank you. Email nirkramp@gmail.com, or scan the QR code to connect on LinkedIn. I welcome your questions.',
   close:
@@ -59,6 +63,7 @@ export const notes: Record<string, string> = {
 }
 
 export const qaNotes: string[] = [
+  'Where do the references come from? Fourteen are copied from the paper\'s own bibliography. Four were added after looking them up with their DOI or ISBN: Marler and Arora 2004 (weighted-sum methods), Psaraftis and Kontovas 2013 (ship speed), Blum and colleagues 2011 (hybrid metaheuristics) and Goldberg 1989 (genetic algorithms). Note two oddities in the paper: entry [26] (Goldberg and Holland 1979) is garbled, so the slides cite Goldberg 1989 instead, and LINER-LIB (Brouer et al.) is cited as 2013 as in the paper although it appears in the 2014 volume of Transportation Science. Worth fixing in the camera-ready version.',
   'Why are Mediterranean and Pacific unprofitable? Demand there is spread over hundreds of low-value pairs that the two-hub shuttle structure serves poorly, and hubs were chosen by a data-driven stand-in rather than set per instance. Also, transhipment handling is computed but not charged: per week that is about $0.29M for Baltic, $0.29M for WAF, $0.64M for Mediterranean and $6.2M for Pacific, so charging it would lower every profit on that slide (Baltic to about $0.42M, WAF to about $3.6M) and push the negative ones further down.',
   'Are the other-instance results validated? No. One seed per instance, settings scaled from WorldSmall, capacity not conserved. They are exploratory evidence that the delivery gain is not specific to WorldSmall, not a benchmark.',
   'Is this a Pareto optimisation? No. It addresses profit and delivery through a weighted scalar fitness and produces no Pareto front. Explain the weights and the fleet penalty directly.',
