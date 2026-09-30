@@ -76,8 +76,8 @@ export const mainScenes: SceneDef[] = [
   { id: 'findings', act: 6, title: 'What we learned', steps: 3, targetSeconds: 30, sources: ['paper.delivery', 'paper.profit'], Component: S23Findings },
   { id: 'next', act: 6, title: 'What next', steps: 3, targetSeconds: 20, sources: [], Component: S24Next },
   { id: 'close', act: 6, title: 'Close', steps: 3, targetSeconds: 25, sources: ['paper.delivery', 'paper.profit'], Component: S25Close },
-  { id: 'thanks', act: 6, title: 'Thank you', steps: 2, targetSeconds: 5, sources: [], Component: S27Thanks },
   { id: 'references', act: 6, title: 'References', steps: 1, targetSeconds: 0, sources: [], Component: S28References },
+  { id: 'thanks', act: 6, title: 'Thank you', steps: 2, targetSeconds: 5, sources: [], Component: S27Thanks },
 ]
 export const appendixScenes: SceneDef[] = []
 

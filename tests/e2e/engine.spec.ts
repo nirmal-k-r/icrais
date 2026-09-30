@@ -43,7 +43,7 @@ test('reload restores position; theme toggle keeps it', async ({ page }) => {
 test('home/end and overview jump', async ({ page }) => {
   await open(page)
   await page.keyboard.press('End')
-  expect(await page.evaluate(() => location.hash)).toBe('#/references/0')
+  expect(await page.evaluate(() => location.hash)).toBe('#/thanks/1')
   await page.keyboard.press('Home')
   expect(await page.evaluate(() => location.hash)).toBe('#/title/0')
   await page.keyboard.press('o')
@@ -72,7 +72,7 @@ test.describe('full show', () => {
     }
     expect(seen).toHaveLength(100)
     expect(seen[0]).toBe('#/title/0')
-    expect(seen[99]).toBe('#/references/0')
+    expect(seen[99]).toBe('#/thanks/1')
     const back: string[] = [seen[99]]
     for (let i = 0; i < 99; i++) {
       await page.keyboard.press('ArrowLeft')

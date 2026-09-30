@@ -55,7 +55,7 @@ export const notes: Record<string, string> = {
   next:
     'Next: transit-time constraints for time-sensitive cargo such as food; vessel-speed optimisation trading fuel against time; and hybrid metaheuristics.',
   references:
-    'Backup slide for questions. The full list with DOIs is on the last pages of the speaker-notes PDF.',
+    'Sources for the claims in this talk, most of them from the paper\'s own bibliography. Leave it up briefly, then move to Thank you. The full list with DOIs is on the last pages of the speaker-notes PDF.',
   thanks:
     'Thank you. Email nirkramp@gmail.com, or scan the QR code to connect on LinkedIn. I welcome your questions.',
   close:

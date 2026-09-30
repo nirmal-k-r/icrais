@@ -72,3 +72,6 @@
 - Citations added in place to: problem (NP-hard), challenges (one per column), WorldSmall (LINER-LIB), tiers (hub-and-spoke), fitness (weighted sum), genetic search, published comparison (names now come from the reference labels; the two Karsten 2017 papers are 2017a and 2017b), and what comes next.
 - New slide 6 "Related work" (exact methods, hub-and-spoke, metaheuristics and hybrids, this work) and a final "References" slide after Thank you (backup for questions). The speaker-notes PDF gets a references page with DOIs and a Q&A entry on where the references come from.
 - 30 scenes, 100 steps, about 13:10 of speaking (the test limit was raised to 14 minutes).
+
+## Feedback round 7, applied
+- "References" slide now sits before "Thank you" (the talk ends on Thank you again). Added Kjeldsen 2017 (paper entry [2]) and cited it, with Christiansen et al. 2020, on a new definition line under the LSNDP slide title; the GA + LSNDP intro slide now cites Holland 1992 and Christiansen et al. 2020.

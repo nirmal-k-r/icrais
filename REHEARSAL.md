@@ -60,8 +60,8 @@ Log your actual time per scene in the last column.
 | 26 | What we learned | 3 | 30 | 12:15 | |
 | 27 | What next | 3 | 20 | 12:35 | |
 | 28 | Close | 3 | 25 | 13:00 | |
-| 29 | Thank you | 2 | 5 | 13:05 | |
-| 30 | References | 1 | 0 | 13:05 | |
+| 29 | References | 1 | 0 | 13:00 | |
+| 30 | Thank you | 2 | 5 | 13:05 | |
 
 If you overrun, cut in this order: *Other instances*, *Fleet*, *GA + LSNDP*, then *Cost breakdown* (find them in the table above). *Related work* is the next candidate if you still need time.
 

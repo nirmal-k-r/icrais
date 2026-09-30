@@ -32,7 +32,11 @@ export function S04Lsndp({ step }: SceneProps) {
   return (
     <div style={{ position: 'absolute', inset: 0 }}>
       <Reveal show style={abs(120, 96, { ...T.h1s })}>The liner shipping network design problem</Reveal>
-      <div style={abs(120, 260, { width: 560 })}>
+      <Reveal show delay={0.2} style={abs(120, 172, { width: 1680 })}>
+        <div style={{ ...T.body, fontSize: 28, color: 'var(--ink-2)' }}>Jointly decide vessel routes, fleet deployment and cargo routing to maximise profit while delivering weekly demand.</div>
+        <div style={{ ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)', marginTop: 4 }}>{cite('kjeldsen2017', 'christiansen2020')}</div>
+      </Reveal>
+      <div style={abs(120, 290, { width: 560 })}>
         {words.map((w, i) => (
           <Reveal key={w.k} show={step >= (i === 0 ? 1 : 2)} delay={i * 0.1} style={{ marginBottom: 22 }}>
             <div style={{ fontSize: 44, fontWeight: 600, letterSpacing: '-0.02em' }}>{w.k}</div>
@@ -40,14 +44,14 @@ export function S04Lsndp({ step }: SceneProps) {
           </Reveal>
         ))}
       </div>
-      <Reveal show={step >= 3} style={abs(120, 640, { width: 560 })}>
+      <Reveal show={step >= 3} style={abs(120, 690, { width: 560 })}>
         <div style={{ fontSize: 40, fontWeight: 600, color: 'var(--cobalt)' }}>Maximise profit</div>
         <div style={{ fontSize: 40, fontWeight: 600, color: 'var(--violet)', marginTop: 6 }}>Deliver weekly demand</div>
         <div style={{ ...T.label, fontWeight: 400, color: 'var(--muted)', marginTop: 18 }}>
           Coupled decisions: assigning one vessel changes capacity everywhere else.
         </div>
       </Reveal>
-      <Reveal show={step >= 4} style={abs(120, 920, { width: 1000 })}>
+      <Reveal show={step >= 4} style={abs(120, 930, { width: 1000 })}>
         <div style={{ ...T.label, color: 'var(--ink-2)' }}>NP-hard problem studied for decades</div>
         <div style={{ ...T.label, fontSize: 22, fontWeight: 400, color: 'var(--muted)', marginTop: 4 }}>{cite('brouer2014', 'christiansen2020')}</div>
       </Reveal>

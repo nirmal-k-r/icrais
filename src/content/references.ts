@@ -18,6 +18,7 @@ export interface Ref {
 }
 
 export const references: Ref[] = [
+  { id: 'kjeldsen2017', label: 'Kjeldsen 2017', authors: 'Kjeldsen KH', year: 2017, title: 'Classification of ship routing and scheduling problems in liner shipping', venue: 'INFOR 49:139–152', source: 'paper', paperNo: 2, doi: '10.3138/INFOR.49.2.139' },
   { id: 'brouer2014', label: 'Brouer et al. 2014', authors: 'Brouer BD, Desaulniers G, Pisinger D', year: 2014, title: 'A matheuristic for the liner shipping network design problem', venue: 'Transp Res E 72:42–59', source: 'paper', paperNo: 3, doi: '10.1016/J.TRE.2014.09.012' },
   { id: 'christiansen2020', label: 'Christiansen et al. 2020', authors: 'Christiansen M, Hellsten E, Pisinger D, Sacramento D, Vilhelmsen C', year: 2020, title: 'Liner shipping network design', venue: 'Eur J Oper Res 286:1–20', source: 'paper', paperNo: 5, doi: '10.1016/J.EJOR.2019.09.057' },
   { id: 'plum2014', label: 'Plum et al. 2014', authors: 'Plum CEM, Pisinger D, Sigurd MM', year: 2014, title: 'A service flow model for the liner shipping network design problem', venue: 'Eur J Oper Res 235:378–386', source: 'paper', paperNo: 10, doi: '10.1016/J.EJOR.2013.10.057' },
