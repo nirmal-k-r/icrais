@@ -35,8 +35,8 @@ Log your actual time per scene in the last column.
 | 6 | Related work | 4 | 25 | 2:35 | |
 | | **Act 2 · Why the larger case** | | | | |
 | 7 | Why WorldSmall? | 3 | 30 | 3:05 | |
-| 8 | Why GA? | 4 | 25 | 3:30 | |
-| 9 | Baseline GA not enough | 2 | 20 | 3:50 | |
+| 8 | Why GA? | 3 | 25 | 3:30 | |
+| 9 | Baseline GA failed at scale | 2 | 20 | 3:50 | |
 | | **Act 3 · The contribution** | | | | |
 | 10 | What we propose | 4 | 25 | 4:15 | |
 | 11 | Four service tiers | 5 | 40 | 4:55 | |

@@ -60,7 +60,7 @@ test('print route renders one page per scene', async ({ page }) => {
 test.describe('full show', () => {
   test.use({ offline: true })
 
-  test('forward walk visits all 109 states in order, then walks back identically', async ({ page }) => {
+  test('forward walk visits all 108 states in order, then walks back identically', async ({ page }) => {
     await open(page)
     const seen: string[] = [await page.evaluate(() => location.hash)]
     for (let i = 0; i < 200; i++) {
@@ -70,11 +70,11 @@ test.describe('full show', () => {
       if (h === seen[seen.length - 1]) break
       seen.push(h)
     }
-    expect(seen).toHaveLength(109)
+    expect(seen).toHaveLength(108)
     expect(seen[0]).toBe('#/title/0')
-    expect(seen[108]).toBe('#/thanks/1')
-    const back: string[] = [seen[108]]
-    for (let i = 0; i < 108; i++) {
+    expect(seen[107]).toBe('#/thanks/1')
+    const back: string[] = [seen[107]]
+    for (let i = 0; i < 107; i++) {
       await page.keyboard.press('ArrowLeft')
       await page.waitForTimeout(25)
       back.push(await page.evaluate(() => location.hash))

@@ -2,7 +2,7 @@
 
 *A Multi-Tier Genetic Algorithm for Large-Scale Liner Shipping Network Design*: Nirmal Rampersand & Oomesh Gukhool.
 
-React + TypeScript + Motion. 32 scenes, 109 reveal steps, about 14:10 of speaking. The built site is one self-contained file and runs fully offline.
+React + TypeScript + Motion. 32 scenes, 108 reveal steps, about 14:10 of speaking. The built site is one self-contained file and runs fully offline.
 
 ## Commands
 ```bash
