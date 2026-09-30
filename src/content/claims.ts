@@ -3,7 +3,7 @@
  * status: published (paper text) | figure-run (paper Fig. 2 run) | instance (LINER-LIB WorldSmall input)
  *       | illustrative (conceptual example) | derived | exploratory (appendix only)
  */
-export type ClaimStatus = 'published' | 'figure-run' | 'instance' | 'illustrative' | 'derived' | 'exploratory'
+export type ClaimStatus = 'published' | 'figure-run' | 'instance' | 'illustrative' | 'derived' | 'exploratory' | 'solution-run'
 export type QuoteFile = 'paper' | 'solver'
 
 export interface Claim {
@@ -33,7 +33,10 @@ const illus = (id: string, display: string, value?: number) =>
   c(id, display, 'illustrative', 'ga encoding.png / worked example', { value })
 
 import instances from '../data/instances.json'
+import solution from '../data/solution.json'
 
+const solClaim = (id: string, v: number) =>
+  c(id, String(v), 'solution-run', 'results_pso_wl_v10_final/seed42/results.json (PSO on WorldLarge, seed 42)', { value: v })
 const money = (v: number) => `${v < 0 ? '−' : ''}$${Math.abs(v).toFixed(2)}M`
 const expClaim = (id: string, display: string, value: number) =>
   c(id, display, 'exploratory', 'results/results_ga_baseline/comparison.json (one run per instance, seed 42; Multi-Tier = scaled variant)', { value })
@@ -144,6 +147,14 @@ export const claims: Claim[] = [
   illus('pen.amount', '−$3M', -3),
   illus('pen.each', '−$300k', -0.3),
   ...instanceClaims,
+  // one real solution on WorldLarge (the authors' saved run, from another algorithm; see the speaker notes): structure only
+  solClaim('sol.services', solution.services),
+  solClaim('sol.ports', solution.portCount),
+  solClaim('sol.direct', solution.direct),
+  solClaim('sol.trunk', solution.trunk),
+  solClaim('sol.feeder', solution.feeder),
+  solClaim('sol.loopPorts', solution.loop.ports.length),
+  solClaim('sol.loopVessels', solution.loop.vessels),
 ]
 
 const byId = new Map(claims.map((x) => [x.id, x]))

@@ -18,10 +18,10 @@
 3. [ ] **Results**: the paper values (≈ 91%, 15.9%, $37.2M) are labelled *Reported in the paper*; $36.2M / 92.0% / 168 are labelled *Example run (paper Fig. 2)*; nothing exploratory appears.
 4. [ ] **Interruption**: during an animation press → → ← quickly; the show lands on a coherent state. Jump to the conclusion from the overview (O).
 5. [ ] **Projection**: every scene legible at 1080p; **T** toggles dark without resetting progress.
-6. [ ] **Export**: 30 pages in order, final states, no controls, no appendix.
+6. [ ] **Export**: 31 pages in order, final states, no controls, no appendix.
 7. [ ] **Reduced motion**: **M** → reduce; same sequence and information via instant changes.
 
-## Timing run (target 13:05 of a 15:00 slot)
+## Timing run (target 13:45 of a 15:00 slot)
 Log your actual time per scene in the last column.
 
 | # | Scene | Steps | Target s | Cumulative | Actual |
@@ -48,20 +48,21 @@ Log your actual time per scene in the last column.
 | 16 | Genetic search | 4 | 35 | 7:35 | |
 | | **Act 5 · What the results show** | | | | |
 | 17 | Reported results | 4 | 35 | 8:10 | |
-| 18 | Convergence | 5 | 45 | 8:55 | |
-| 19 | Cost evolution | 3 | 30 | 9:25 | |
-| 20 | Cost breakdown | 3 | 20 | 9:45 | |
-| 21 | Regional delivery | 3 | 25 | 10:10 | |
-| 22 | Fleet | 2 | 15 | 10:25 | |
-| 23 | Published results | 3 | 25 | 10:50 | |
-| 24 | Other instances | 3 | 25 | 11:15 | |
+| 18 | A WorldLarge solution | 5 | 40 | 8:50 | |
+| 19 | Convergence | 5 | 45 | 9:35 | |
+| 20 | Cost evolution | 3 | 30 | 10:05 | |
+| 21 | Cost breakdown | 3 | 20 | 10:25 | |
+| 22 | Regional delivery | 3 | 25 | 10:50 | |
+| 23 | Fleet | 2 | 15 | 11:05 | |
+| 24 | Published results | 3 | 25 | 11:30 | |
+| 25 | Other instances | 3 | 25 | 11:55 | |
 | | **Act 6 · Closing** | | | | |
-| 25 | Algorithmic lessons | 4 | 30 | 11:45 | |
-| 26 | What we learned | 3 | 30 | 12:15 | |
-| 27 | What next | 3 | 20 | 12:35 | |
-| 28 | Close | 3 | 25 | 13:00 | |
-| 29 | References | 1 | 0 | 13:00 | |
-| 30 | Thank you | 2 | 5 | 13:05 | |
+| 26 | Algorithmic lessons | 4 | 30 | 12:25 | |
+| 27 | What we learned | 3 | 30 | 12:55 | |
+| 28 | What next | 3 | 20 | 13:15 | |
+| 29 | Close | 3 | 25 | 13:40 | |
+| 30 | References | 1 | 0 | 13:40 | |
+| 31 | Thank you | 2 | 5 | 13:45 | |
 
 If you overrun, cut in this order: *Other instances*, *Fleet*, *GA + LSNDP*, then *Cost breakdown* (find them in the table above). *Related work* is the next candidate if you still need time.
 

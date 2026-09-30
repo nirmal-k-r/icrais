@@ -54,13 +54,13 @@ test('home/end and overview jump', async ({ page }) => {
 test('print route renders one page per scene', async ({ page }) => {
   await page.goto(url + '?print')
   await expect(page.locator('[data-ready="true"]')).toBeVisible()
-  await expect(page.locator('.print-page')).toHaveCount(30)
+  await expect(page.locator('.print-page')).toHaveCount(31)
 })
 
 test.describe('full show', () => {
   test.use({ offline: true })
 
-  test('forward walk visits all 100 states in order, then walks back identically', async ({ page }) => {
+  test('forward walk visits all 105 states in order, then walks back identically', async ({ page }) => {
     await open(page)
     const seen: string[] = [await page.evaluate(() => location.hash)]
     for (let i = 0; i < 200; i++) {
@@ -70,11 +70,11 @@ test.describe('full show', () => {
       if (h === seen[seen.length - 1]) break
       seen.push(h)
     }
-    expect(seen).toHaveLength(100)
+    expect(seen).toHaveLength(105)
     expect(seen[0]).toBe('#/title/0')
-    expect(seen[99]).toBe('#/thanks/1')
-    const back: string[] = [seen[99]]
-    for (let i = 0; i < 99; i++) {
+    expect(seen[104]).toBe('#/thanks/1')
+    const back: string[] = [seen[104]]
+    for (let i = 0; i < 104; i++) {
       await page.keyboard.press('ArrowLeft')
       await page.waitForTimeout(25)
       back.push(await page.evaluate(() => location.hash))
@@ -100,7 +100,7 @@ test.describe('full show', () => {
     page.on('console', (m) => m.type() === 'error' && errs.push(m.text()))
     await page.goto(url + '?print')
     await expect(page.locator('[data-ready="true"]')).toBeVisible()
-    await expect(page.locator('.print-page')).toHaveCount(30)
+    await expect(page.locator('.print-page')).toHaveCount(31)
     expect(errs).toEqual([])
   })
 

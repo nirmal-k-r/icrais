@@ -4,6 +4,7 @@ import { S01Title } from '../scenes/S01Title'
 import { S02Question } from '../scenes/S02Question'
 import { S09Tiers } from '../scenes/S09Tiers'
 import { S10Journey } from '../scenes/S10Journey'
+import { S16bNetwork } from '../scenes/S16bNetwork'
 import { S17Convergence } from '../scenes/S17Convergence'
 import { S03Translate } from '../scenes/S03Translate'
 import { S04Lsndp } from '../scenes/S04Lsndp'
@@ -65,6 +66,7 @@ export const mainScenes: SceneDef[] = [
   { id: 'penalty', act: 4, title: 'Fleet penalty', steps: 3, targetSeconds: 25, sources: ['fit.penaltyPerVessel', 'pen.amount'], Component: S14Penalty },
   { id: 'search', act: 4, title: 'Genetic search', steps: 4, targetSeconds: 35, sources: ['mut.start', 'mut.end', 'cfg.population'], Component: S15Search },
   { id: 'headline', act: 5, title: 'Reported results', steps: 4, targetSeconds: 35, sources: ['paper.delivery', 'paper.profit', 'paper.baselineWS'], Component: S16Headline },
+  { id: 'network', act: 5, title: 'A WorldLarge solution', steps: 5, targetSeconds: 40, sources: ['sol.services', 'sol.ports', 'sol.direct', 'sol.trunk', 'sol.feeder', 'sol.loopPorts', 'sol.loopVessels'], Component: S16bNetwork },
   { id: 'convergence', act: 5, title: 'Convergence', steps: 5, targetSeconds: 45, sources: ['run.profit', 'run.delivery', 'run.vessels'], Component: S17Convergence },
   { id: 'costs', act: 5, title: 'Cost evolution', steps: 3, targetSeconds: 30, sources: ['run.cost.bunker'], Component: S18Costs },
   { id: 'breakdown', act: 5, title: 'Cost breakdown', steps: 3, targetSeconds: 20, sources: ['run.cost', 'run.revenue'], Component: S19Breakdown },

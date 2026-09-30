@@ -2,7 +2,7 @@
 
 *A Multi-Tier Genetic Algorithm for Large-Scale Liner Shipping Network Design*: Nirmal Rampersand & Oomesh Gukhool.
 
-React + TypeScript + Motion. 30 scenes, 100 reveal steps, about 13:05 of speaking. The built site is one self-contained file and runs fully offline.
+React + TypeScript + Motion. 31 scenes, 105 reveal steps, about 13:45 of speaking. The built site is one self-contained file and runs fully offline.
 
 ## Commands
 ```bash
@@ -96,8 +96,9 @@ If the watch misbehaves, the keyboard, touch and phone remote keep working. I te
 - `server/server.mjs`: the single Node server (static files, `/events`, `/cmd/<name>`, `/health`, `/remote`). `public/remote.html`: the phone remote page.
 - `src/data/figrun-*.json`: per-generation series digitised from the paper's Fig. 2 PNGs by `scripts/digitise_figures.py`, validated against the stated endpoints (overlays in `scripts/out/`).
 - `src/data/ports.json`, `fleet.json`: WorldSmall **inputs only**, built by `scripts/build_instance_data.py` from `../results/results_ga_v20_b/`.
+- `src/data/solution.json`: one real WorldLarge solution (201 ports, 97 services: 21 direct, 24 trunk, 52 feeder, plus one real 10-port, 23-vessel trunk loop), built by `scripts/build_solution_data.py` from `../results_pso_wl_v10_final/`. Service type comes from the candidate pool each service was drawn from (checked against vessel classes). The slide calls it a WorldLarge solution and shows structure only; where it comes from (another algorithm) and its totals and caveats are in the speaker notes and Q&A.
 - `src/data/instances.json`: baseline against Multi-Tier on Baltic, WAF, Mediterranean and Pacific (one run each), built by `scripts/build_instances_data.py` from `../results/results_ga_baseline/`. These are exploratory and appear only on the "other instances" slide.
 
-Nothing from the seed-42 WorldSmall extraction's performance, link or flow outputs is used. The paper's headline numbers, the Fig. 2 example run and the other-instance runs are kept apart on screen and by tests.
+The seed-42 WorldSmall GA extraction is not used. The paper's headline numbers, the Fig. 2 example run, the other-instance runs and the PSO WorldLarge solution are four separate families of results, kept apart on screen and by tests.
 
 Design rules live in `../IMPLEMENTATION_PLAN.md`, deviations in `PLAN_NOTES.md`, review artefacts in `review/`, the rehearsal checklist in `REHEARSAL.md`, and the content sign-off table in `review/CONTENT_REVIEW.md`.

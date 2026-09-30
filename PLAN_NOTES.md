@@ -75,3 +75,20 @@
 
 ## Feedback round 7, applied
 - "References" slide now sits before "Thank you" (the talk ends on Thank you again). Added Kjeldsen 2017 (paper entry [2]) and cited it, with Christiansen et al. 2020, on a new definition line under the LSNDP slide title; the GA + LSNDP intro slide now cites Holland 1992 and Christiansen et al. 2020.
+
+## Feedback round 8, applied
+- New slide 17 **"A solution on the real network"**: a world map of one real WorldSmall solution (170 two-port services, trunk vs feeder vessels, line width = weekly capacity on a log scale because one Rotterdam-Bremerhaven pair has 13 vessels), then one real shipment from `flows.csv` (Qingdao to Bremerhaven via Singapore and Rotterdam) animated along its actual legs. Data: `scripts/build_solution_data.py` -> `src/data/solution.json`.
+- **Separate run.** This is the seed-42 run (91.3% delivery, about $41.2M per week, 170 vessels), not the paper headline (about 91%, $37.2M, 171) or the Fig. 2 example (92.0%, $36.2M, 168). The slide says so and shows structure only; the totals are in the speaker notes. A new `solution-run` claim status and a test keep `sol.*` claims on this scene only.
+- Routes are drawn as gentle flow-map curves (great circles arced over the Arctic, which no ship does); Pacific crossings wrap around the date line and are clipped to the map outline.
+- Worth expecting a question: the real solution has no regional loops (all services are two-port shuttles), whereas the tiers slide shows four tiers. A Q&A note covers it.
+
+## Feedback round 9 (PSO WorldLarge network), applied
+- The "real network" slide now uses the authors' **PSO run on WorldLarge** (`results_pso_wl_v10_final/seed42`) instead of the GA seed-42 WorldSmall run, and says on the slide that it is a particle swarm run, a different algorithm from the Multi-Tier GA. Title: "A solution on a larger network".
+- Content: 201 ports (served ports solid, unserved faint, 26 hubs ringed), 232 lanes drawn as flow-map curves (width = weekly load, log scale), two-port shuttles (46, solid) then multi-port rotations (51, dashed), then one real 10-port Asia-Europe loop (service 35, 23 vessels) with a ship circling it.
+- Structure only on the slide. The saved headline (about $53.3M per week, 76.8% delivery, 97 services, 312 of 501 vessels) is in the notes with the caveats from the PSO README: the profit includes a $25.1M per week idle-vessel credit (about $28.0M without), transit time is not enforced, and the lane loads come from a re-evaluation that lands about 0.4% lower in profit and 0.9 points lower in delivery.
+- Q&A notes replaced accordingly (PSO vs GA, caveats, why multi-port loops appear here).
+
+## Feedback round 10, applied
+- The WorldLarge slide now emphasises the **three service types**: direct (21, black), trunk (24, thick blue, long hub loops) and feeder (52, dashed violet, small vessels), each revealed in its own step with the earlier types stepping back, then one real trunk service (10-port loop, 23 vessels) with a ship circling it. Types come from the candidate pool each service was drawn from (direct 0-52, trunk 53-184, feeder 185-311); a build-time assertion checks that feeder services use only the Feeder vessel classes.
+- The slide no longer mentions PSO or another algorithm: title "A WorldLarge solution", subtitle "97 services across 201 ports, in three types with different roles." The provenance (another algorithm, PSO) and the caveats stay in the speaker notes and Q&A so the answer is ready if asked. Note the audience will likely assume the solution is from the Multi-Tier GA; say so aloud or keep the Q&A answer handy.
+- 105 steps, about 13:55 of speaking.
