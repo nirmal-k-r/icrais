@@ -38,3 +38,14 @@ export function fromHash(hash: string, ids: string[], steps: number[]): Nav {
   const i = ids.indexOf(m[1])
   return i < 0 ? home() : goto(i, steps, Number(m[2]))
 }
+
+/** Auto mode: one press = one slide. The slide's builds play on their own after it opens. */
+export function nextAuto(n: Nav, steps: number[]): Nav {
+  if (n.scene < steps.length - 1) return { scene: n.scene + 1, step: 0 }
+  return { scene: n.scene, step: steps[n.scene] - 1 } // last slide: show it complete
+}
+/** Going back shows the previous slide already complete (no replay). */
+export function prevAuto(n: Nav, steps: number[]): Nav {
+  if (n.scene > 0) return { scene: n.scene - 1, step: steps[n.scene - 1] - 1 }
+  return { scene: 0, step: 0 }
+}

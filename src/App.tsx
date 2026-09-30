@@ -1,7 +1,7 @@
 import { AnimatePresence, MotionConfig, motion } from 'motion/react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { getScenes } from './content/scenes'
-import { end, fromHash, goto, home, next, prev, toHash, type Nav } from './engine/navReducer'
+import { end, fromHash, goto, home, next, nextAuto, prev, prevAuto, toHash, type Nav } from './engine/navReducer'
 import { SceneEnvCtx, easeInOut, type MotionPref } from './engine/motion'
 import { MOTION_PREFS, THEMES, readPref, writePref, type Theme } from './engine/prefs'
 import { PrintView } from './engine/PrintView'
@@ -13,12 +13,15 @@ import { startRemote } from './engine/remote'
 
 const params = new URLSearchParams(location.search)
 const isPrint = params.has('print')
+const AUTO_PREFS = ['on', 'off'] as const
 
 export function App() {
   const [theme, setTheme] = useState<Theme>(
     isPrint ? (params.get('theme') === 'dark' ? 'dark' : 'light') : readPref('theme', THEMES, 'light'),
   )
   const [motionPref, setMotionPref] = useState<MotionPref>(readPref('motion', MOTION_PREFS, 'system'))
+  // auto: one press = one slide and the builds inside it play themselves. ?manual (or the S key) gives manual reveals.
+  const [autoSteps, setAutoSteps] = useState(params.has('manual') ? false : readPref('autoSteps', AUTO_PREFS, 'on') === 'on')
   const [includeAppendix, setIncludeAppendix] = useState(params.has('appendix'))
   const scenes = useMemo(() => getScenes(includeAppendix), [includeAppendix])
   const steps = useMemo(() => scenes.map((s) => s.steps), [scenes])
@@ -88,10 +91,17 @@ export function App() {
   }, [])
 
   const actions = {
-    next: () => move(next(nav, steps)),
-    prev: () => move(prev(nav, steps)),
+    next: () => move(autoSteps ? nextAuto(nav, steps) : next(nav, steps)),
+    prev: () => move(autoSteps ? prevAuto(nav, steps) : prev(nav, steps)),
     nextScene: () => move(goto(nav.scene + 1, steps)),
     prevScene: () => move(goto(nav.scene - 1, steps)),
+    auto: () => {
+      const on = !autoSteps
+      setAutoSteps(on)
+      writePref('autoSteps', on ? 'on' : 'off')
+      flash(on ? 'Builds play automatically' : 'Manual reveals')
+    },
+    replay: () => move(goto(nav.scene, steps)),
     home: () => move(home()),
     end: () => move(end(steps)),
     fullscreen: () => {
@@ -132,6 +142,18 @@ export function App() {
     },
   }
   useKeyboard(actions)
+
+  // auto mode: after a slide opens, its builds appear by themselves on the slide's own timing
+  const sceneDef = scenes[Math.min(nav.scene, scenes.length - 1)]
+  useEffect(() => {
+    if (isPrint || !autoSteps || nav.step >= sceneDef.steps - 1) return
+    const at = { scene: nav.scene, step: nav.step }
+    const t = window.setTimeout(
+      () => setNav((n) => (n.scene === at.scene && n.step === at.step ? { scene: at.scene, step: at.step + 1 } : n)),
+      sceneDef.autoMs?.[nav.step] ?? 2200,
+    )
+    return () => window.clearTimeout(t)
+  }, [autoSteps, nav.scene, nav.step, sceneDef])
 
   // always-current view of the actions for the input listeners below (they are registered once)
   const live = useRef({ actions, blocked: false })
@@ -252,6 +274,8 @@ export function App() {
           }}
           onFullscreen={actions.fullscreen}
           onScene={(i) => move(goto(i, steps))}
+          autoSteps={autoSteps}
+          onAuto={actions.auto}
           onTheme={actions.theme}
           onCloseOverlays={actions.escape}
         />

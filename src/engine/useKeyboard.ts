@@ -16,6 +16,8 @@ export interface KeyActions {
   restart(): void
   appendix(): void
   nextScene(): void
+  auto(): void
+  replay(): void
   prevScene(): void
 }
 
@@ -25,6 +27,7 @@ const map: Record<string, keyof KeyActions> = {
   Home: 'home', End: 'end', Escape: 'escape',
   f: 'fullscreen', o: 'overview', h: 'help', '?': 'help', t: 'theme',
   m: 'motion', b: 'black', p: 'print', r: 'restart', a: 'appendix',
+  s: 'auto', Enter: 'replay',
   ']': 'nextScene', '[': 'prevScene', '.': 'nextScene', ',': 'prevScene',
 }
 

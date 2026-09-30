@@ -27,7 +27,7 @@ test('the server serves the slides, the phone remote, and does not leak files', 
 })
 
 test('commands from the phone or watch drive a presenter page opened with ?remote', async ({ page, request }) => {
-  await page.goto(`${site}/?remote#/tiers/1`)
+  await page.goto(`${site}/?remote&manual#/tiers/1`)
   await page.waitForFunction(() => location.hash.startsWith('#/'))
   await expect.poll(async () => (await (await request.get(`${site}/health`)).json()).listeners).toBe(1)
   const hash = () => page.evaluate(() => location.hash)
@@ -47,7 +47,7 @@ test('commands from the phone or watch drive a presenter page opened with ?remot
 })
 
 test('a page opened without ?remote is not controlled (so the audience is unaffected)', async ({ page, request }) => {
-  await page.goto(`${site}/#/tiers/1`)
+  await page.goto(`${site}/?manual#/tiers/1`)
   await page.waitForTimeout(500)
   expect((await (await request.get(`${site}/health`)).json()).listeners).toBe(0)
   await request.get(`${site}/cmd/next`)

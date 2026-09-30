@@ -10,7 +10,7 @@
 - [ ] PDF for sharing: `npm run export:pdf` → `exports/` (light, dark, speaker-notes).
 
 ## Keys
-→ / Space / PgDn / ↓ next reveal (or swipe left on a touchscreen) · ← / PgUp / ↑ back (or swipe right) · Home / End · **Shift + → / ←** (or **[** and **]**) jump a whole scene · drag the **bottom slider** to scrub scenes · **O** overview (click a scene to jump) · **B** black screen · **M** motion: system → reduce → full · **R R** restart · **P** print/PDF view.
+→ / Space / PgDn / ↓ **next slide** (or swipe left on a touchscreen); the builds inside each slide play by themselves · ← / PgUp / ↑ previous slide, shown complete (or swipe right) · **S** automatic or manual reveals · **Enter** replay this slide · Home / End · **Shift + → / ←** (or **[** and **]**) jump a whole scene · drag the **bottom slider** to scrub scenes · **O** overview (click a scene to jump) · **B** black screen · **M** motion: system → reduce → full · **R R** restart · **P** print/PDF view.
 
 ## Acceptance scenarios (SRS §11)
 1. [ ] **Opening**: fresh offline load → fullscreen → question, pause, vignette; no browser chrome, no footer.

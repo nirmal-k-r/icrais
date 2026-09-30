@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { end, fromHash, goto, home, next, prev, toHash } from '../../src/engine/navReducer'
+import { end, fromHash, goto, home, next, nextAuto, prev, prevAuto, toHash } from '../../src/engine/navReducer'
 
 const steps = [2, 3, 1]
 const ids = ['a', 'b', 'c']
@@ -41,5 +41,13 @@ describe('navReducer', () => {
     expect(fromHash('#/nope/1', ids, steps)).toEqual(home())
     expect(fromHash('', ids, steps)).toEqual(home())
     expect(fromHash('#/b/99', ids, steps)).toEqual({ scene: 1, step: 2 })
+  })
+  it('auto mode: next opens the next slide at its first state, previous shows the earlier slide complete', () => {
+    expect(nextAuto({ scene: 0, step: 1 }, steps)).toEqual({ scene: 1, step: 0 })
+    expect(nextAuto({ scene: 1, step: 0 }, steps)).toEqual({ scene: 2, step: 0 })
+    expect(prevAuto({ scene: 1, step: 0 }, steps)).toEqual({ scene: 0, step: 1 })
+    expect(prevAuto({ scene: 2, step: 0 }, steps)).toEqual({ scene: 1, step: 2 })
+    expect(prevAuto({ scene: 0, step: 1 }, steps)).toEqual({ scene: 0, step: 0 })
+    expect(nextAuto({ scene: 2, step: 0 }, steps)).toEqual({ scene: 2, step: 0 })
   })
 })

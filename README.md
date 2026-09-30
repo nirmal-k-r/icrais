@@ -18,13 +18,15 @@ npx playwright test  # e2e: full-show walk, touch, scroll, remote, print route (
 ## Controls
 | Input | Action |
 |---|---|
-| → Space PgDn ↓ / ← PgUp ↑ | next / previous reveal |
+| → Space PgDn ↓ / ← PgUp ↑ | **next / previous slide**: each slide's builds play by themselves; going back shows the earlier slide complete |
+| `S` (or the Steps button in the bottom bar) | switch between automatic builds and manual reveals (`?manual` in the address does the same) |
+| `Enter` | replay the current slide's builds |
 | Shift + → / ←, or `]` / `[` | next / previous scene |
 | Bottom slider (move the mouse to show it) | scrub through scenes |
 | `O` overview, `F` fullscreen, `T` theme, `B` black screen, `M` motion, `?` help | |
-| Touch (iPad): swipe, or tap right side / left third | next / previous reveal |
+| Touch (iPad): swipe, or tap right side / left third | next / previous slide |
 | Touch: tap the strip along the bottom edge | show the slider, theme and fullscreen buttons |
-| Scroll wheel or trackpad scroll | one gesture is one step |
+| Scroll wheel or trackpad scroll | one gesture is one slide |
 
 ## Deploy on icrais.unrism.com (nginx, pm2, certbot)
 One small Node process, `server/server.mjs`, does everything: it serves the slides **and** the phone/watch remote.

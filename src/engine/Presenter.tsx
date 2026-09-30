@@ -24,6 +24,8 @@ export interface ChromeProps {
   onGoto(i: number): void
   onFullscreen(): void
   onScene(i: number): void
+  autoSteps: boolean
+  onAuto(): void
   onTheme(): void
   onCloseOverlays(): void
 }
@@ -74,8 +76,10 @@ export function Presenter(p: ChromeProps) {
           <table style={{ fontSize: 20, lineHeight: 1.7, borderCollapse: 'collapse' }}>
             <tbody>
               {[
-                ['→  Space  PgDn  ↓', 'Next reveal'],
-                ['←  PgUp  ↑', 'Previous reveal'],
+                ['→  Space  PgDn  ↓', p.autoSteps ? 'Next slide' : 'Next reveal'],
+                ['←  PgUp  ↑', p.autoSteps ? 'Previous slide (shown complete)' : 'Previous reveal'],
+                ['S', p.autoSteps ? 'Builds play automatically (press for manual)' : 'Manual reveals (press for automatic)'],
+                ['Enter', 'Replay this slide'],
                 ['Home / End', 'First / last scene'],
                 ['Shift + → / ←  or  ] / [', 'Next / previous scene'],
                 ['Drag the bottom slider', 'Scrub through scenes'],
@@ -121,6 +125,7 @@ export function Presenter(p: ChromeProps) {
           style={{ flex: 1, margin: '0 24px', accentColor: 'var(--cobalt)', cursor: 'pointer' }}
         />
         <span style={{ display: 'flex', gap: 8 }}>
+          <button onClick={p.onAuto} style={btn} aria-label="Toggle automatic builds">{p.autoSteps ? 'Steps: auto' : 'Steps: manual'}</button>
           <button onClick={p.onTheme} style={btn} aria-label="Toggle light or dark theme">{p.theme === 'light' ? 'Dark mode' : 'Light mode'}</button>
           <button onClick={p.onFullscreen} style={btn}>Fullscreen</button>
           <button onClick={p.onCloseOverlays} style={btn} aria-label="Close panels">Esc</button>

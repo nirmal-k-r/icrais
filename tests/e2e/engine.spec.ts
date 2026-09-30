@@ -5,7 +5,7 @@ import type { Page } from '@playwright/test'
 
 const url = pathToFileURL(path.resolve('dist/index.html')).href
 const open = async (page: Page, suffix = '') => {
-  await page.goto(url + suffix)
+  await page.goto(url + '?manual' + suffix) // these tests exercise manual reveals
   await page.waitForFunction(() => location.hash.startsWith('#/'))
   await page.waitForTimeout(100)
 }
