@@ -106,3 +106,6 @@
 ## Feedback round 13, applied
 - "Why GA?" reworked: three reasons (explores huge search spaces; the genome fits the problem: one gene per vessel route covers vessel assignment and route construction and each network is scored on how it routes cargo; GA solutions already exist, Cariou et al. 2018). The "flexible objectives and constraints" point was removed because that is a separate component of the work. Each reason has a visual: a population cloud, a genome strip coloured by service tier, and the reference.
 - The baseline slide reads plainly: title "But our baseline GA failed at scale", subtitle "Demand delivered by our baseline GA on two instances", note "Profit without delivery. The search settled early on networks that used few vessels."
+
+## Feedback round 14, applied
+- "Why GA?" no longer reveals the chromosome early: point 2 now says "Its genome structure is a natural fit" (vessel assignment, route construction and cargo routing can be handled together in one search), with a neutral visual (three decisions converging into one search) instead of the gene strip. The structure itself is shown on the later chromosome slide; the speaker note says "I will show that structure a little later".

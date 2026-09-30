@@ -2,12 +2,12 @@ import type { SceneProps } from '../content/scenes'
 import { cite } from '../content/references'
 import { Reveal, RevealG } from '../components/Reveal'
 import { Port } from '../components/network/parts'
-import { tierStyle, type Tier } from '../components/network/tiers'
+import { DrawLink } from '../components/network/parts'
 import { T, abs } from '../styles/type'
 
 const rows = [
   { n: '01', k: 'It explores huge search spaces', d: 'Many candidate networks evolve side by side, so the search is never tied to a single path.', c: cite('holland1992', 'bartz2014') },
-  { n: '02', k: 'Its genome fits the problem', d: 'One gene per vessel route covers vessel assignment and route construction, and each network is scored on how it routes cargo.', c: '' },
+  { n: '02', k: 'Its genome structure is a natural fit', d: 'Vessel assignment, route construction and cargo routing can all be handled together in one search.', c: '' },
   { n: '03', k: 'GA solutions already exist', d: 'Genetic algorithms have been applied to liner network design, even with emission control areas.', c: '' },
 ]
 const Y0 = 270
@@ -19,8 +19,9 @@ const cloud = Array.from({ length: 44 }, (_, i) => {
   const b = Math.sin(i * 78.233) * 12345.6789
   return { x: 1170 + (a - Math.floor(a)) * 610, y: Y0 + 4 + (b - Math.floor(b)) * 130, best: i % 11 === 3 }
 })
-// a chromosome: one gene per vessel route, coloured by service tier
-const genes: Tier[] = ['direct', 'direct', 'trunk', 'trunk', 'trunk', 'feeder', 'feeder', 'feeder', 'feeder', 'feeder', 'loop', 'loop']
+// three decisions that one search has to make together
+const decisions = ['Vessel assignment', 'Route construction', 'Cargo routing']
+const FX = 1170, FY = Y0 + PITCH + 10, JOIN = { x: 1690, y: Y0 + PITCH + 52 }
 
 export function S07bWhyGA({ step }: SceneProps) {
   return (
@@ -44,13 +45,18 @@ export function S07bWhyGA({ step }: SceneProps) {
         <RevealG show delay={0.6}>
           <text x={1170} y={Y0 + 178} fontSize={22} fill="var(--muted)">A population of candidate networks</text>
         </RevealG>
-        {/* 02: the genome, one gene per vessel route */}
-        <RevealG show={step >= 1} delay={0.2}>
-          {genes.map((t, i) => {
-            const st = tierStyle[t]
-            return <rect key={i} x={1170 + i * 52} y={Y0 + PITCH + 14} width={44} height={64} rx={4} fill={st.color} fillOpacity={0.14} stroke={st.color} strokeWidth={t === 'trunk' ? 5 : 3} strokeDasharray={st.dash} />
-          })}
-          <text x={1170} y={Y0 + PITCH + 120} fontSize={22} fill="var(--muted)">One gene per vessel route, grouped by service tier</text>
+        {/* 02: three decisions, one search */}
+        {decisions.map((label, k) => (
+          <g key={label}>
+            <RevealG show={step >= 1} delay={0.1 + k * 0.15}>
+              <text x={FX} y={FY + k * 44 + 8} fontSize={26} fontWeight={500} fill="var(--ink)">{label}</text>
+            </RevealG>
+            <DrawLink d={`M${FX + 290} ${FY + k * 44} Q${FX + 440} ${FY + k * 44} ${JOIN.x} ${JOIN.y}`} tier="direct" show={step >= 1} delay={0.5 + k * 0.15} strokeWidth={3} drawTime={0.7} />
+          </g>
+        ))}
+        <Port p={JOIN} r={11} hub show={step >= 1} delay={1.1} />
+        <RevealG show={step >= 1} delay={1.2}>
+          <text x={JOIN.x} y={JOIN.y + 44} fontSize={22} fill="var(--muted)" textAnchor="middle">one search</text>
         </RevealG>
         {/* 03: the reference, large and plain */}
         <RevealG show={step >= 2} delay={0.2}>

@@ -15,7 +15,7 @@ export const notes: Record<string, string> = {
   worldsmall:
     'We chose WorldSmall because we wanted to move beyond a small regional network. 47 ports, 263 vessels, 1,764 origin-destination pairs and about 128,000 FFE per week. Cargo must cross regions and connect through different vessel classes. Note: WorldSmall does not contain Port Louis; the Mauritius example in the opening is only an illustration.',
   whyga:
-    'Why a genetic algorithm? It searches a huge space by evolving many candidate networks side by side instead of following a single path. Its genome also fits the problem: one gene per vessel route covers vessel assignment and route construction, and each candidate network is scored on how it routes the cargo. And genetic algorithms have already been applied to liner network design, for example Cariou and colleagues with emission control areas. So a GA was our starting point.',
+    'Why a genetic algorithm? It searches a huge space by evolving many candidate networks side by side instead of following a single path. The structure of a genome is also a natural fit for this problem: vessel assignment, route construction and cargo routing can all be handled together in one search. I will show that structure a little later. And genetic algorithms have already been applied to liner network design, for example Cariou and colleagues with emission control areas. So a GA was our starting point.',
   baseline:
     'But our baseline GA failed at scale. It served 99.6% of the demand on Baltic, yet only 15.9% on WorldSmall. It made money without delivering: the search settled early on networks that used few vessels and left the rest chartered out. That is what pushed us to build the large-network framework.',
   framework:
