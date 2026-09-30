@@ -61,7 +61,7 @@ export function S07bWhyGA({ step }: SceneProps) {
         {/* 03: the reference, large and plain */}
         <RevealG show={step >= 2} delay={0.2}>
           <text x={1170} y={Y0 + 2 * PITCH + 48} fontSize={44} fontWeight={600} fill="var(--ink)">{cite('cariou2018')}</text>
-          <text x={1170} y={Y0 + 2 * PITCH + 88} fontSize={24} fill="var(--muted)">GA for liner network design</text>
+          <text x={1170} y={Y0 + 2 * PITCH + 88} fontSize={24} fill="var(--muted)">GA for solving LSNDP</text>
         </RevealG>
       </svg>
     </div>
