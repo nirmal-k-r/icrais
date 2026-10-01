@@ -43,7 +43,7 @@ export const notes: Record<string, string> = {
   costs:
     'Fuel and charter costs fall as the search finds leaner routes; handling rises as more cargo is carried. In the lower plot, revenue rises and cost falls until a profit gap opens near generation 100.',
   breakdown:
-    'In the example run: revenue $219.1M, cost $183.0M, model profit $36.2M. Fuel, handling and time charter make up about 90% of cost, which is why fleet allocation and route design matter so much to the financial objective.',
+    'In the example run: revenue $216.6M, cost $179.4M, model profit $37.2M. Fuel, handling and time charter make up about 90% of cost, which is why fleet allocation and route design matter so much to the financial objective.',
   regions:
     'Delivery in every region pair is above 90%, from 90.1% to 100% in this example run. The global figure weights actual cargo, so it is not the average of these nine cells. About 90% of delivered cargo is transhipped through hubs, which is what the tiers are designed for.',
   fleet:
@@ -78,7 +78,7 @@ export const qaNotes: string[] = [
   'Does the penalty directly penalise unmet demand? No. The explicit penalty is for fleet deployment below 50 vessels. Delivered demand enters as a weighted reward in the other branch.',
   'Why WorldSmall? Global connectivity, mixed vessel classes and many OD pairs. A single larger case is evidence about that instance, not a general scalability law.',
   'Is the 91% figure an average over runs? It is the value the paper reports for WorldSmall. The paper also notes about 3% profit variance over 10 runs. The notebook behind the paper figure shows 91.5% is the mean of the last five generations of the reported run and 93.4% the best.',
-  'Why do the paper and the figure values differ? The paper summary and the Figure 2 example run are different summaries (about 91% and $37.2M versus 92.0% and $36.2M). Use the paper for headlines and the figure run for search traces and cost breakdown.',
+  'Why do the paper and the figure values differ? The paper summary and the Figure 2 example run are different summaries (about 91% versus 92.0% delivery, and 171 versus 168 vessels; profit is quoted as $37.2M throughout, although the plotted Figure 2 curve ends about a million lower because it is a different run). Use the paper for headlines and the figure run for search traces and cost breakdown.',
   'Is delivered demand capacity-feasible? The evaluator checks link capacity per OD pair and may count shared links more than once, so the delivery percentage may be optimistic. A capacity-conserving flow model is future work. The talk reports the model outcomes and does not claim independent feasibility validation.',
   'Is transhipment cost included? The objective includes load and unload handling. Transhipment handling is computed but not charged in the current implementation: a known limitation.',
   'Why is fitness so much larger than profit? Fitness includes the alpha times delivery reward, so it is a selection score, not money.',

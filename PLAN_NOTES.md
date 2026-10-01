@@ -109,3 +109,8 @@
 
 ## Feedback round 14, applied
 - "Why GA?" no longer reveals the chromosome early: point 2 now says "Its genome structure is a natural fit" (vessel assignment, route construction and cargo routing can be handled together in one search), with a neutral visual (three decisions converging into one search) instead of the gene strip. The structure itself is shown on the later chromosome slide; the speaker note says "I will show that structure a little later".
+
+## Feedback round 15: profit standardised to $37.2M
+- WorldSmall profit now reads $37.2M everywhere it is shown as text (convergence end label, cost-breakdown ledger, speaker notes, rehearsal checklist). Done as a text-only change, as requested; charts and data are untouched.
+- Verified before changing: the paper's own Figure 2 (page 9) is identical to the PNG we digitised and ends at about $36.2M, 168 vessels and 92.0% delivery, while the paper's text, and the notebook's printed result, give $37,208,209, 171 vessels and 91.2% delivery (revenue $216.6M minus cost $179.4M). They are two runs of the same stochastic GA.
+- Cost-breakdown slide: revenue and cost now read $216.6M and $179.4M (from the notebook run that produced $37.2M) so the equation adds up. Still from the Figure 2 run, and therefore slightly inconsistent with those totals: the cost bars (sum $183.0M), the plotted curves, the convergence delivery and vessel labels (92.0%, 168) and the regional delivery matrix.

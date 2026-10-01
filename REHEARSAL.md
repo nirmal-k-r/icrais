@@ -15,7 +15,7 @@
 ## Acceptance scenarios (SRS §11)
 1. [ ] **Opening**: fresh offline load → fullscreen → question, pause, vignette; no browser chrome, no footer.
 2. [ ] **Explanation**: with → and ← only: four tiers, cargo journey, chromosome, fitness, 40-vessel penalty. Reversing reconstructs the previous state.
-3. [ ] **Results**: the paper values (≈ 91%, 15.9%, $37.2M) are labelled *Reported in the paper*; $36.2M / 92.0% / 168 are labelled *Example run (paper Fig. 2)*; nothing exploratory appears.
+3. [ ] **Results**: the paper values (≈ 91%, 15.9%, $37.2M) are labelled *Reported in the paper*; $37.2M / 92.0% / 168 are labelled *Example run (paper Fig. 2)*; nothing exploratory appears.
 4. [ ] **Interruption**: during an animation press → → ← quickly; the show lands on a coherent state. Jump to the conclusion from the overview (O).
 5. [ ] **Projection**: every scene legible at 1080p; **T** toggles dark without resetting progress.
 6. [ ] **Export**: 32 pages in order, final states, no controls, no appendix.
